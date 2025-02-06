@@ -10,6 +10,8 @@ public class SceneManagerScript : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene != "dragndrop")
         {
+            Debug.LogWarning("DRAG ALLOWED IN SCENE SWITCHER, DONT FORGET TO CHANGE");
+            DragManager.isDragAllowed = true;
             SceneManager.LoadScene("dragndrop");
         }
         else

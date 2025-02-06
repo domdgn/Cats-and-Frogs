@@ -14,7 +14,7 @@ public class CardDragger : MonoBehaviour
             touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
             touchPosition.z = 0;
 
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began && DragManager.isDragAllowed)
             {
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
@@ -26,8 +26,14 @@ public class CardDragger : MonoBehaviour
                 }
             }
 
-            if (DragManager.isDragging && touch.phase == TouchPhase.Moved)
+            if (!DragManager.isDragAllowed)
             {
+                Debug.Log("Drag not permitted");
+            }
+
+            if (DragManager.isDragging && DragManager.isDragAllowed && touch.phase == TouchPhase.Moved)
+            {
+                spawnedObject.layer = LayerMask.NameToLayer("UI");
                 spawnedObject.transform.position = touchPosition;
             }
 
@@ -38,14 +44,19 @@ public class CardDragger : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, gridLayer);
                 if (hit.collider != null)
                 {
-                    Destroy(spawnedObject);
-                    spawnedObject = Instantiate(spawnPrefab, hit.collider.transform.position, Quaternion.identity);
-                    Debug.Log($"Placed {spawnedObject.name}");
-                }
-                else
-                {
-                    Destroy(spawnedObject); 
-                    Debug.Log("Invalid Placement");
+                    Vector2 gridPosition = hit.collider.transform.position;
+                    if (!ContainerHandler.IsPositionOccupied(gridPosition))
+                    {
+                        Destroy(spawnedObject);
+                        spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity);
+                        ContainerHandler.OccupyPosition(gridPosition, spawnedObject);
+                        Debug.Log($"Placed {spawnedObject.name}");
+                    }
+                    else
+                    {
+                        Destroy(spawnedObject);
+                        Debug.Log("Position already occupied");
+                    }
                 }
             }
         }

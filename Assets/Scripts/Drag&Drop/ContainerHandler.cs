@@ -1,18 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static Dictionary<Vector2, GameObject> occupiedPositions = new Dictionary<Vector2, GameObject>();
+
+    public static bool IsPositionOccupied(Vector2 position)
     {
-        
+        return occupiedPositions.ContainsKey(position);
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void OccupyPosition(Vector2 position, GameObject obj)
     {
-        //Debug.Log(DragManager.isDragging);
+        occupiedPositions[position] = obj;
+    }
+
+    public static void ClearPosition(Vector2 position)
+    {
+        occupiedPositions.Remove(position);
     }
 }
