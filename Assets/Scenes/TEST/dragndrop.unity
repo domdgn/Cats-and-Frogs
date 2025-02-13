@@ -344,9 +344,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.08974359
+    y: 0.07446808
     width: 1
-    height: 0.82051283
+    height: 0.8510638
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -393,7 +393,6 @@ GameObject:
   m_Component:
   - component: {fileID: 442228037}
   - component: {fileID: 442228036}
-  - component: {fileID: 442228035}
   - component: {fileID: 442228034}
   - component: {fileID: 442228033}
   m_Layer: 0
@@ -471,14 +470,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &442228035
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442228032}
-  m_Enabled: 1
 --- !u!20 &442228036
 Camera:
   m_ObjectHideFlags: 0
@@ -507,9 +498,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.08974359
+    y: 0.07446808
     width: 1
-    height: 0.82051283
+    height: 0.8510638
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

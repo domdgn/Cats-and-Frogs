@@ -19,4 +19,16 @@ public class ContainerHandler : MonoBehaviour
     {
         occupiedPositions.Remove(position);
     }
+
+    public static void ClearAllPositions()
+    {
+        //dont iterate over a dictionary while modifying it
+        //fix later
+        //coding patterns book thing about the Command Pattern
+        foreach (Vector2 position in occupiedPositions.Keys)
+        {
+            ClearPosition(position);
+            Debug.Log($"Position {position} cleared");
+        }
+    }
 }
