@@ -22,10 +22,10 @@ public class ContainerHandler : MonoBehaviour
 
     public static void ClearAllPositions()
     {
-        //dont iterate over a dictionary while modifying it
-        //fix later
-        //coding patterns book thing about the Command Pattern
-        foreach (Vector2 position in occupiedPositions.Keys)
+        // Create a copy of the keys to iterate over
+        List<Vector2> positionsToRemove = new List<Vector2>(occupiedPositions.Keys);
+
+        foreach (Vector2 position in positionsToRemove)
         {
             ClearPosition(position);
             Debug.Log($"Position {position} cleared");

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 2d600af3830685a47a589285a765e2d2
+  - enabled: 0
     path: Assets/Scenes/TEST/protoScene.unity
     guid: 20104d7ae3fa8e941bcccfffb90bad85
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TEST/dragndrop.unity
     guid: afb41382254ac4043a8e69dc7ee95512
   m_configObjects:
