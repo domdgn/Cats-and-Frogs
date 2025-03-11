@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CatSO : MonoBehaviour
+[CreateAssetMenu(fileName = "NewCat", menuName = "Game/Cat")]
+public class CatSO : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string catName;
+    public Sprite sprite;
+    public int health = 100;
+    public float attackSpeed = 1f;
+    public int damage = 10;
 }
