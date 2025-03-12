@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor.Animations;
 
 [CreateAssetMenu(fileName = "NewCat", menuName = "Game/Cat")]
 public class CatSO : ScriptableObject
@@ -8,6 +7,6 @@ public class CatSO : ScriptableObject
     public Sprite sprite;
     public int health = 100;
     public float waitTime = 1f;
-    public AnimatorController animatorController;
+    public RuntimeAnimatorController animatorController;
     public float damage = 10;
 }

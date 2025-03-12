@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = -1;
         atShop = false;
         mainCamera = Camera.main;
     }
