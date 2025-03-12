@@ -5,10 +5,9 @@ public class CardDragger : MonoBehaviour
     private Vector3 touchPosition;
     private GameObject spawnedObject;
     private CameraController cameraController;
-    //private bool transitioningCamera = false;
     private LayerMask gridLayer;
-    private Coroutine synchronizeCoroutine;
 
+    [SerializeField] private CatSO catType;
     void Start()
     {
         cameraController = FindObjectOfType<CameraController>();
@@ -41,6 +40,10 @@ public class CardDragger : MonoBehaviour
                     spawnedObject = Instantiate(spawnPrefab, touchPosition, Quaternion.identity);
                     if (spawnedObject != null)
                     {
+                        Sprite sprite = catType.sprite;
+                        SpriteRenderer spriteRenderer = spawnedObject.GetComponent<SpriteRenderer>();
+                        spriteRenderer.sprite = sprite;
+
                         DragManager.dragObject = spawnedObject;
                         spawnedObject.layer = LayerMask.NameToLayer("UI");
                         Debug.Log($"Instantiated {spawnedObject.name}");
@@ -73,7 +76,8 @@ public class CardDragger : MonoBehaviour
                         if (!ContainerHandler.IsPositionOccupied(gridPosition))
                         {
                             Destroy(spawnedObject);
-                            spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity);
+                            DeployCat(catType, gridPosition);
+
                             ContainerHandler.OccupyPosition(gridPosition, spawnedObject);
                             Debug.Log($"Placed {spawnedObject.name}");
                         }
@@ -93,14 +97,24 @@ public class CardDragger : MonoBehaviour
         }
     }
 
+    private void DeployCat(CatSO catType, Vector2 gridPosition)
+    {
+        spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity);
+        CatController controller = spawnedObject.GetComponent<CatController>();
+        //Debug.Log(catType.name);
+        if (controller != null)
+        {
+            controller.SetupCat(catType);
+        }
+    }
+
     void LateUpdate()
     {
         if (DragManager.isDragging && spawnedObject != null && Input.touchCount > 0)
         {
-            Vector3 lateTouchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            lateTouchPosition.z = 0;
-            spawnedObject.transform.position = lateTouchPosition;
-            Debug.Log($"LateUpdate position: {lateTouchPosition}");
+            Vector3 TouchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            TouchPosition.z = 0;
+            spawnedObject.transform.position = TouchPosition; 
         }
     }
 }

@@ -3360,6 +3360,18 @@ PrefabInstance:
       value: test_ShopTile_Cat
       objectReference: {fileID: 0}
     - target: {fileID: 3704578529469288468, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704578529469288468, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.96941197
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704578529469288468, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704578529469288468, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
@@ -3432,9 +3444,13 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7146818860183236964, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: catType
+      value: 
+      objectReference: {fileID: 11400000, guid: df94774f45272224d95a05696e3c3795, type: 2}
+    - target: {fileID: 7146818860183236964, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
       propertyPath: spawnPrefab
       value: 
-      objectReference: {fileID: 6235783766728276969, guid: b139fe26bd5e053418e32842c1ce1430, type: 3}
+      objectReference: {fileID: 1095638705370948051, guid: de87f427c484c174d8adb20fc546a771, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

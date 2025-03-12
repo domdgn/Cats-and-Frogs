@@ -8,6 +8,7 @@ TagManager:
   - UI
   - Cat
   - ShopTile
+  - Frog
   layers:
   - Default
   - TransparentFX
