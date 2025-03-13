@@ -1,5 +1,5 @@
-using System.Threading;
-using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -7,22 +7,27 @@ public class EnemyController : MonoBehaviour
     private EnemySO enemyData;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private EnemyAttackScript attackScript;
 
-    private int health;
+    private float health;
     private float waitTime;
     private float moveDistance = 1.125f;
     private float timer = 0f;
+    private float damage;
+    private float speed;
 
     private bool isWaiting = true;
     private Vector3 nextPosition;
     private Vector2 currentGridPosition;
     private int distToEnd = 9;
-    //private bool atEnd = false;
+    private float delay;
+    private GameObject catToHurt;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        attackScript = GetComponent<EnemyAttackScript>();
     }
 
     private void Start()
@@ -33,9 +38,11 @@ public class EnemyController : MonoBehaviour
 
     public void SetupEnemy(EnemySO enemyType)
     {
+        damage = enemyType.damage;
         enemyData = enemyType;
         health = enemyType.health;
         waitTime = enemyType.waitTime;
+        delay = 0f;
 
         if (spriteRenderer != null && enemyType.sprite != null)
         {
@@ -45,6 +52,8 @@ public class EnemyController : MonoBehaviour
         {
             animator.runtimeAnimatorController = enemyType.animatorController;
         }
+
+        StartCoroutine(AttackAndWait(delay, waitTime));
     }
 
     void Update()
@@ -103,7 +112,7 @@ public class EnemyController : MonoBehaviour
         //this is genuinely such bad code im embarrassed
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         health -= amount;
         if (health <= 0)
@@ -117,5 +126,34 @@ public class EnemyController : MonoBehaviour
         ContainerHandler.ClearPosition(currentGridPosition);
         ContainerHandler.ClearPosition(nextPosition);
         Destroy(gameObject);
+    }
+    private void MeleeAttack(Vector3 position, float damage)
+    {
+        if (attackScript == null)
+        {
+            Debug.LogError("AttackScript is null on " + gameObject.name);
+            return;
+        }
+        Vector2 attackPosition = new Vector2(transform.position.x, transform.position.y - moveDistance);
+
+        CatController cat = attackScript.FindCatAt(attackPosition);
+
+        if (cat != null)
+        {
+            attackScript.DoMeleeDamage(cat.gameObject, damage);
+        }
+    }
+
+    IEnumerator AttackAndWait(float delay, float waitTime)
+    {
+        yield return new WaitForSeconds(delay);
+
+        while (true)
+        {
+            MeleeAttack(nextPosition, damage);
+            yield return new WaitForSeconds(waitTime);
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

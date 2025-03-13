@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3023535732240801419}
   - component: {fileID: 4426866818095927044}
   - component: {fileID: -8292724723306285527}
+  - component: {fileID: 7487501706596282602}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Cat
@@ -132,7 +133,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 0.27, y: 0.24}
   m_EdgeRadius: 0
 --- !u!95 &3023535732240801419
 Animator:
@@ -181,6 +182,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6323412768205117940, guid: 2e758b9cfcd08ab4f8ec230a2482f5e1, type: 3}
   firePoint: {fileID: 648656540881383792}
+--- !u!50 &7487501706596282602
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095638705370948051}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5899468564451776418
 GameObject:
   m_ObjectHideFlags: 0

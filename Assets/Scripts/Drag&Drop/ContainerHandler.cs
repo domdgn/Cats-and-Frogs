@@ -10,6 +10,15 @@ public class ContainerHandler : MonoBehaviour
         return occupiedPositions.ContainsKey(position);
     }
 
+    public static GameObject WhoOccupies(Vector2 position)
+    {
+        if (occupiedPositions.ContainsKey(position))
+        {
+            return occupiedPositions[position];
+        }
+        return null;
+    }
+
     public static void OccupyPosition(Vector2 position, GameObject obj)
     {
         occupiedPositions[position] = obj;

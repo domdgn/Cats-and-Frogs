@@ -9,13 +9,12 @@ public class CatController : MonoBehaviour
     private Animator animator;
     private ProjectileFire projectileScript;
 
-    private int health;
+    private float health;
     private float damage;
     private float waitTime;
     private float speed;
 
     private float delay = 0.2f;
-    private bool isAttacking = false;
     private Vector2 currentGridPosition;
 
     private void Awake()
@@ -23,11 +22,12 @@ public class CatController : MonoBehaviour
         projectileScript = GetComponent<ProjectileFire>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        currentGridPosition = transform.position;
     }
 
     public void SetupCat(CatSO catType)
     {
-        Debug.Log(catType.name);
+        //Debug.Log(catType.name);
         catData = catType;
         health = catType.health;
         waitTime = catType.waitTime;
@@ -53,7 +53,7 @@ public class CatController : MonoBehaviour
         //animation events
 
 
-        if (projectileScript.enabled && isAttacking)
+        if (projectileScript.enabled)
         {
             projectileScript.Fire(damage, speed);
         }
@@ -66,12 +66,24 @@ public class CatController : MonoBehaviour
 
         while (true)
         {
-            isAttacking = true;
             Attack(damage, speed);
             yield return new WaitForSeconds(waitTime);
-            isAttacking = false;
 
             yield return new WaitForSeconds(0.1f);
         }
+    }
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            DestroySelf();
+        }
+    }
+    private void DestroySelf()
+    {
+        Debug.Log("destyroyded cat");
+        ContainerHandler.ClearPosition(currentGridPosition);
+        Destroy(gameObject);
     }
 }
