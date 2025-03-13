@@ -1,26 +1,24 @@
 using UnityEngine;
 public class CardDragger : MonoBehaviour
 {
-    [SerializeField] private GameObject spawnPrefab;
+    //[SerializeField] private GameObject spawnPrefab;
     private Vector3 touchPosition;
-    private GameObject spawnedObject;
+    private static GameObject spawnedObject;
     private CameraController cameraController;
     private LayerMask gridLayer;
+    private ShopSpawnScript shopSpawnScript;
 
-    [SerializeField] private CatSO catType;
+    //[SerializeField] private CatSO catType;
     void Start()
     {
         cameraController = FindObjectOfType<CameraController>();
+        shopSpawnScript = GetComponent<ShopSpawnScript>();
         gridLayer = LayerMask.GetMask("TileGrid");
     }
 
     void Update()
     {
-        if (CameraController.atShop)
-        {
-            DragManager.isDragAllowed = true;
-        }
-        else
+        if (!CameraController.atShop)
         {
             DragManager.isDragAllowed = false;
         }
@@ -37,23 +35,7 @@ public class CardDragger : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     DragManager.isDragging = true;
-                    spawnedObject = Instantiate(spawnPrefab, touchPosition, Quaternion.identity);
-                    if (spawnedObject != null)
-                    {
-                        Sprite sprite = catType.sprite;
-                        SpriteRenderer spriteRenderer = spawnedObject.GetComponent<SpriteRenderer>();
-                        spriteRenderer.sprite = sprite;
-
-                        DragManager.dragObject = spawnedObject;
-                        spawnedObject.layer = LayerMask.NameToLayer("UI");
-                        Debug.Log($"Instantiated {spawnedObject.name}");
-
-                        if (CameraController.atShop)
-                        {
-                            Debug.Log("Starting camera transition");
-                            cameraController.MoveCamera();
-                        }
-                    }
+                    shopSpawnScript.InstantiatePrefab(touchPosition);
                 }
             }
 
@@ -65,9 +47,8 @@ public class CardDragger : MonoBehaviour
 
             if (touch.phase == TouchPhase.Ended && DragManager.isDragging)
             {
-                Debug.Log("Touch ended, attempting placement");
                 DragManager.isDragging = false;
-                if (spawnedObject != null)
+                if (shopSpawnScript.hasCat)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, gridLayer);
                     if (hit.collider != null)
@@ -75,11 +56,10 @@ public class CardDragger : MonoBehaviour
                         Vector2 gridPosition = hit.collider.transform.position;
                         if (!ContainerHandler.IsPositionOccupied(gridPosition))
                         {
-                            Destroy(spawnedObject);
-                            DeployCat(catType, gridPosition);
+                            shopSpawnScript.DestroyCat();
+                            shopSpawnScript.DeployCat(shopSpawnScript.catType, gridPosition);
 
                             ContainerHandler.OccupyPosition(gridPosition, spawnedObject);
-                            Debug.Log($"Placed {spawnedObject.name}");
                         }
                         else
                         {
@@ -97,16 +77,16 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    private void DeployCat(CatSO catType, Vector2 gridPosition)
-    {
-        spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity);
-        CatController controller = spawnedObject.GetComponent<CatController>();
-        //Debug.Log(catType.name);
-        if (controller != null)
-        {
-            controller.SetupCat(catType);
-        }
-    }
+    //private void DeployCat(CatSO catType, Vector2 gridPosition)
+    //{
+    //    spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity);
+    //    CatController controller = spawnedObject.GetComponent<CatController>();
+    //    //Debug.Log(catType.catName);
+    //    if (controller != null)
+    //    {
+    //        controller.SetupCat(catType);
+    //    }
+    //}
 
     void LateUpdate()
     {
