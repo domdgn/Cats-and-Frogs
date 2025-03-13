@@ -1,14 +1,11 @@
 using UnityEngine;
 public class CardDragger : MonoBehaviour
 {
-    //[SerializeField] private GameObject spawnPrefab;
     private Vector3 touchPosition;
-    private static GameObject spawnedObject;
     private CameraController cameraController;
     private LayerMask gridLayer;
     private ShopSpawnScript shopSpawnScript;
 
-    //[SerializeField] private CatSO catType;
     void Start()
     {
         cameraController = FindObjectOfType<CameraController>();
@@ -35,7 +32,7 @@ public class CardDragger : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     DragManager.isDragging = true;
-                    shopSpawnScript.InstantiatePrefab(touchPosition);
+                    shopSpawnScript.SpawnPreviewCat(touchPosition);
                 }
             }
 
@@ -47,8 +44,7 @@ public class CardDragger : MonoBehaviour
 
             if (touch.phase == TouchPhase.Ended && DragManager.isDragging)
             {
-                DragManager.isDragging = false;
-                if (shopSpawnScript.hasCat)
+                if (DragManager.isDragging)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, gridLayer);
                     if (hit.collider != null)
@@ -56,20 +52,23 @@ public class CardDragger : MonoBehaviour
                         Vector2 gridPosition = hit.collider.transform.position;
                         if (!ContainerHandler.IsPositionOccupied(gridPosition))
                         {
-                            shopSpawnScript.DestroyCat();
-                            shopSpawnScript.DeployCat(shopSpawnScript.catType, gridPosition);
+                            DragManager.isDragging = false;
+                            shopSpawnScript.RemovePreviewCat();
+                            shopSpawnScript.DeployCat(gridPosition);
 
-                            ContainerHandler.OccupyPosition(gridPosition, spawnedObject);
+                            ContainerHandler.OccupyPosition(gridPosition, shopSpawnScript.GetSpawnedObject());
                         }
                         else
                         {
-                            Destroy(spawnedObject);
+                            DragManager.isDragging = false;
+                            shopSpawnScript.RemovePreviewCat();
                             Debug.LogWarning("Position already occupied");
                         }
                     }
                     else
                     {
-                        Destroy(spawnedObject);
+                        DragManager.isDragging = false;
+                        shopSpawnScript.RemovePreviewCat();
                         Debug.LogWarning("Placement outside of grid not allowed");
                     }
                 }
@@ -77,24 +76,17 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    //private void DeployCat(CatSO catType, Vector2 gridPosition)
-    //{
-    //    spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity);
-    //    CatController controller = spawnedObject.GetComponent<CatController>();
-    //    //Debug.Log(catType.catName);
-    //    if (controller != null)
-    //    {
-    //        controller.SetupCat(catType);
-    //    }
-    //}
-
     void LateUpdate()
     {
-        if (DragManager.isDragging && spawnedObject != null && Input.touchCount > 0)
+        if (DragManager.isDragging && Input.touchCount > 0)
         {
             Vector3 TouchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
             TouchPosition.z = 0;
-            spawnedObject.transform.position = TouchPosition; 
+            GameObject spawnedObject = shopSpawnScript.GetSpawnedObject();
+            if (spawnedObject != null)
+            {
+                spawnedObject.transform.position = TouchPosition;
+            }
         }
     }
 }

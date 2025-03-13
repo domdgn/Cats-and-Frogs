@@ -9,6 +9,7 @@ TagManager:
   - Cat
   - ShopTile
   - Frog
+  - Projectile
   layers:
   - Default
   - TransparentFX

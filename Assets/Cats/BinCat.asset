@@ -16,5 +16,5 @@ MonoBehaviour:
   sprite: {fileID: 52885591, guid: 65bd3e05f0ac51b4fb40e28258da8cba, type: 3}
   health: 100
   waitTime: 1
-  animatorController: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: 4c412e53ea4b8a94aa6a0c41ba7d50bf, type: 2}
   damage: 10

@@ -2981,6 +2981,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3708366313958988559, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: catType
+      value: 
+      objectReference: {fileID: 11400000, guid: c15b0a48cce69f343af190329f340973, type: 2}
+    - target: {fileID: 3708366313958988559, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: previewPrefab
+      value: 
+      objectReference: {fileID: 2717612957967404779, guid: c7170f6f730a60448b11495bbfc4b921, type: 3}
     - target: {fileID: 4480607478955006990, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
       propertyPath: m_Name
       value: calico
@@ -3492,6 +3500,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3708366313958988559, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: catType
+      value: 
+      objectReference: {fileID: 11400000, guid: df94774f45272224d95a05696e3c3795, type: 2}
+    - target: {fileID: 3708366313958988559, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
+      propertyPath: previewPrefab
+      value: 
+      objectReference: {fileID: 2717612957967404779, guid: c7170f6f730a60448b11495bbfc4b921, type: 3}
     - target: {fileID: 4480607478955006990, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
       propertyPath: m_Name
       value: catinbin
@@ -4301,9 +4317,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.08974359
+    y: 0
     width: 1
-    height: 0.82051283
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -6938,9 +6954,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.08974359
+    y: 0
     width: 1
-    height: 0.82051283
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

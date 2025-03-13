@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum CatType
+{
+    Gun,
+    Melee,
+    CoinCollector
+}
+
 [CreateAssetMenu(fileName = "NewCat", menuName = "Game/Cat")]
 public class CatSO : ScriptableObject
 {
@@ -9,4 +16,7 @@ public class CatSO : ScriptableObject
     public float waitTime = 1f;
     public RuntimeAnimatorController animatorController;
     public float damage = 10;
+    public float bulletSpeed = 5f;
+
+    public CatType catMode;
 }

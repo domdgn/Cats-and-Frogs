@@ -6,6 +6,7 @@ public class WaveManager : MonoBehaviour
     public WaveSO[] waves;
     public Transform[] spawnPoints;
     public GameObject enemyPrefab;
+    public Transform frogParent;
 
     private int currentWave = 0;
 
@@ -22,7 +23,7 @@ public class WaveManager : MonoBehaviour
         {
             yield return new WaitForSeconds(enemySpawn.spawnDelay);
             int lane = Mathf.Clamp(enemySpawn.laneIndex, 0, spawnPoints.Length - 1);
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[lane].position, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[lane].position, Quaternion.identity, frogParent);
 
             EnemyController controller = enemy.GetComponent<EnemyController>();
             if (controller != null)

@@ -15,6 +15,7 @@ MonoBehaviour:
   catName: Calico
   sprite: {fileID: 127580722, guid: bcfceca9cf10bec46ad18630a1d0860d, type: 3}
   health: 100
-  waitTime: 1
+  waitTime: 2
   animatorController: {fileID: 9100000, guid: 72db7fda984eb48408c972b0960817f0, type: 2}
   damage: 10
+  bulletSpeed: 5
