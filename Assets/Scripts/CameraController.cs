@@ -20,7 +20,8 @@ public class CameraController : MonoBehaviour
 
     public void MoveCamera()
     {
-        // Don't start a new movement if already moving
+        DragManager.isDragAllowed = false;
+        Debug.Log(DragManager.isDragAllowed);
         if (isMoving)
             return;
 
@@ -34,10 +35,7 @@ public class CameraController : MonoBehaviour
             distanceToMove = moveDistance;
         }
 
-        // Start the smooth movement coroutine
         StartCoroutine(SmoothCameraMovement(distanceToMove));
-
-        // Toggle the shop state
         atShop = !atShop;
     }
 
@@ -67,6 +65,8 @@ public class CameraController : MonoBehaviour
 
         Debug.Log($"Camera moved {distanceToMove} units in X direction");
         isMoving = false;
+        DragManager.isDragAllowed = true;
+        Debug.Log(DragManager.isDragAllowed);
     }
     public float GetMoveDuration()
     {
