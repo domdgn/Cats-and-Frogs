@@ -37,6 +37,7 @@ public class ContainerHandler : MonoBehaviour
         foreach (Vector2 position in positionsToRemove)
         {
             ClearPosition(position);
+            Destroy(occupiedPositions[position]);
             Debug.Log($"Position {position} cleared");
         }
     }

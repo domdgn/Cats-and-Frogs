@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
     public void MoveCamera()
     {
         DragManager.isDragAllowed = false;
-        Debug.Log(DragManager.isDragAllowed);
         if (isMoving)
             return;
 
@@ -63,10 +62,8 @@ public class CameraController : MonoBehaviour
 
         mainCamera.transform.position = targetPosition;
 
-        Debug.Log($"Camera moved {distanceToMove} units in X direction");
         isMoving = false;
         DragManager.isDragAllowed = true;
-        Debug.Log(DragManager.isDragAllowed);
     }
     public float GetMoveDuration()
     {

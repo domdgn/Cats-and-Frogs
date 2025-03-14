@@ -8,8 +8,8 @@ public class CatController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private ProjectileFire projectileScript;
+    private HealthScript healthScript;
 
-    private float health;
     private float damage;
     private float waitTime;
     private float speed;
@@ -22,14 +22,14 @@ public class CatController : MonoBehaviour
         projectileScript = GetComponent<ProjectileFire>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        healthScript = GetComponent<HealthScript>();
         currentGridPosition = transform.position;
     }
 
     public void SetupCat(CatSO catType)
     {
-        //Debug.Log(catType.name);
         catData = catType;
-        health = catType.health;
+        healthScript.health = catType.health;
         waitTime = catType.waitTime;
         damage = catType.damage;
         speed = catType.bulletSpeed;
@@ -74,15 +74,14 @@ public class CatController : MonoBehaviour
     }
     public void TakeDamage(float amount)
     {
-        health -= amount;
-        if (health <= 0)
+        healthScript.TakeDamage(amount);
+        if (healthScript.GetHealth() <= 0)
         {
             DestroySelf();
         }
     }
     private void DestroySelf()
     {
-        Debug.Log("destyroyded cat");
         ContainerHandler.ClearPosition(currentGridPosition);
         Destroy(gameObject);
     }

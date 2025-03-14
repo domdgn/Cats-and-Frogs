@@ -7,41 +7,116 @@ public class WaveManager : MonoBehaviour
     public Transform[] spawnPoints;
     public GameObject enemyPrefab;
     public Transform frogParent;
+    private GameUIMgr gameUIMgr;
 
+    [SerializeField] float buyTimer;
     private int currentWave = 0;
-
-    void Start()
+    private int frogsAlive = 0;
+    private int totalFrogsInWave = 0;
+    private Coroutine currentWaveCoroutine;
+    private float remainingBuyTime;
+    private void Awake()
     {
-        StartCoroutine(StartWave(currentWave));
+        gameUIMgr = FindObjectOfType<GameUIMgr>();
     }
 
+    public void BeginGame()
+    {
+        BeginBuyPeriod(buyTimer);
+    }
+    public void BeginNextWave()
+    {
+        if (currentWave < waves.Length)
+        {
+            if (currentWaveCoroutine != null)
+            {
+                StopCoroutine(currentWaveCoroutine);
+            }
+
+            currentWaveCoroutine = StartCoroutine(StartWave(currentWave));
+            currentWave++;
+        }
+        else
+        {
+            Debug.Log("All waves completed!");
+        }
+    }
     IEnumerator StartWave(int waveIndex)
     {
         Debug.Log("Starting wave: " + waves[waveIndex].waveName);
+
+        frogsAlive = 0;
+        totalFrogsInWave = waves[waveIndex].enemies.Length;
 
         foreach (var enemySpawn in waves[waveIndex].enemies)
         {
             yield return new WaitForSeconds(enemySpawn.spawnDelay);
             int lane = Mathf.Clamp(enemySpawn.laneIndex, 0, spawnPoints.Length - 1);
             GameObject enemy = Instantiate(enemyPrefab, spawnPoints[lane].position, Quaternion.identity, frogParent);
+            frogsAlive++;
 
             EnemyController controller = enemy.GetComponent<EnemyController>();
             if (controller != null)
             {
                 controller.SetupEnemy(enemySpawn.enemyType);
+                controller.OnDeath += FrogKilled; //subscribes frog to death event
             }
         }
 
-        yield return new WaitForSeconds(waves[waveIndex].waveDuration);
+        float timeElapsed = 0f;
+        while (frogsAlive > 0)
+        {
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
 
-        currentWave++;
-        if (currentWave < waves.Length)
+    public void FrogKilled()
+    {
+        frogsAlive--;
+
+        if (frogsAlive <= 0)
         {
-            StartCoroutine(StartWave(currentWave));
+            if (currentWaveCoroutine != null)
+            {
+                StopCoroutine(currentWaveCoroutine);
+                currentWaveCoroutine = null;
+            }
+
+            Debug.Log("All enemies in wave defeated");
+            BeginBuyPeriod(buyTimer);
         }
-        else
+    }
+    public void BeginBuyPeriod(float buyTimer)
+    {
+        StartCoroutine(BuyPeriod(buyTimer));
+    }
+    IEnumerator BuyPeriod(float buyTimer)
+    {
+        Debug.Log($"timer begun. {buyTimer} seconds");
+        remainingBuyTime = buyTimer;
+
+        while (remainingBuyTime > 0)
         {
-            Debug.Log("All waves completed!");
+            gameUIMgr.UpdateTimer(remainingBuyTime);
+            remainingBuyTime -= Time.deltaTime;
+            yield return null; // Wait for the next frame
         }
+
+        Debug.Log("Buy period ended");
+        gameUIMgr.UpdateTimer(0f);
+        BeginNextWave();
+    }
+    public int GetNumberFrogs()
+    {
+        return frogsAlive;
+    }
+    public int GetTotalWaves()
+    {
+        return waves.Length;
+    }
+    public int GetCurrentWaveIndex()
+    {
+        return currentWave;
     }
 }

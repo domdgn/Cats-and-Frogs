@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private EnemyAttackScript attackScript;
+    private HealthScript healthScript;
 
     private float health;
     private float waitTime;
@@ -23,11 +24,14 @@ public class EnemyController : MonoBehaviour
     private float delay;
     private GameObject catToHurt;
 
+    public delegate void DeathEvent();
+    public event DeathEvent OnDeath;
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         attackScript = GetComponent<EnemyAttackScript>();
+        healthScript = GetComponent<HealthScript>();
     }
 
     private void Start()
@@ -40,7 +44,7 @@ public class EnemyController : MonoBehaviour
     {
         damage = enemyType.damage;
         enemyData = enemyType;
-        health = enemyType.health;
+        healthScript.health = enemyType.health;
         waitTime = enemyType.waitTime;
         delay = 0f;
 
@@ -107,18 +111,24 @@ public class EnemyController : MonoBehaviour
         //atEnd = true;
 
         Debug.Log("Frog Reached End");
-        DestroySelf();
+        Die();
 
         //this is genuinely such bad code im embarrassed
     }
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
-        if (health <= 0)
+        healthScript.TakeDamage(amount);
+        if (healthScript.health <= 0)
         {
-            DestroySelf();
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        OnDeath?.Invoke();
+        DestroySelf();
     }
 
     private void DestroySelf()

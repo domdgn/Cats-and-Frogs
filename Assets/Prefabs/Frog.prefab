@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3023535732240801419}
   - component: {fileID: 8385421451214867983}
   - component: {fileID: 2227050867020755160}
+  - component: {fileID: 2852318972129364261}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Frog
@@ -206,6 +207,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f39eccd4916b4943bc2cbc5fda61f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catLayer:
-    serializedVersion: 2
-    m_Bits: 64
+--- !u!114 &2852318972129364261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095638705370948051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a293d6fd6fef63439ea2403fef3b468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0

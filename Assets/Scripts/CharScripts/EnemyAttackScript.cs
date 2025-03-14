@@ -31,4 +31,9 @@ public class EnemyAttackScript : MonoBehaviour
             cat.TakeDamage(damage);
         }
     }
+
+    public void DamagePond(float damage)
+    {
+
+    }
 }

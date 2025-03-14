@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4426866818095927044}
   - component: {fileID: -8292724723306285527}
   - component: {fileID: 7487501706596282602}
+  - component: {fileID: 4683750064245364496}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Cat
@@ -209,6 +210,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4683750064245364496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095638705370948051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a293d6fd6fef63439ea2403fef3b468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5899468564451776418
 GameObject:
   m_ObjectHideFlags: 0

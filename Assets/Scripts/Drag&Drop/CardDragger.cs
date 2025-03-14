@@ -36,12 +36,6 @@ public class CardDragger : MonoBehaviour
                 }
             }
 
-            if (!DragManager.isDragAllowed)
-            {
-                Debug.LogWarning("Drag not permitted");
-            }
-
-
             if (touch.phase == TouchPhase.Ended && DragManager.isDragging)
             {
                 if (DragManager.isDragging)

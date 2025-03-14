@@ -37,7 +37,7 @@ public class ShopSpawnScript : MonoBehaviour
 
             DragManager.dragObject = spawnedObject;
             spawnedObject.layer = LayerMask.NameToLayer("UI");
-            Debug.Log($"Instantiated {spawnedObject.name} of type {catType.catName}");
+            //Debug.Log($"Instantiated {spawnedObject.name} of type {catType.catName}");
         }
     }
 
@@ -54,11 +54,11 @@ public class ShopSpawnScript : MonoBehaviour
 
             DragManager.dragObject = previewCat;
             previewCat.layer = LayerMask.NameToLayer("UI");
-            Debug.Log($"Preview {catType.catName}");
+            //Debug.Log($"Preview {catType.catName}");
 
             if (CameraController.atShop)
             {
-                Debug.Log("Starting camera transition");
+                //Debug.Log("Starting camera transition");
                 cameraController.MoveCamera();
             }
         }
@@ -84,7 +84,7 @@ public class ShopSpawnScript : MonoBehaviour
         if (controller != null)
         {
             controller.SetupCat(catToUse);
-            Debug.Log($"Deployed cat of type {catToUse.catName} at {gridPosition}");
+            //Debug.Log($"Deployed cat of type {catToUse.catName} at {gridPosition}");
         }
     }
 

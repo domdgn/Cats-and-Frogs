@@ -10,6 +10,7 @@ TagManager:
   - ShopTile
   - Frog
   - Projectile
+  - Pond
   layers:
   - Default
   - TransparentFX
