@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Darius Frog
   sprite: {fileID: 21300000, guid: 6a5c8be26723ff0459aad8276efcc49a, type: 3}
-  health: 40
-  moveSpeed: 1
+  health: 60
+  moveSpeed: 1.5
   waitTime: 1
   damage: 10
   animatorController: {fileID: 0}

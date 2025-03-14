@@ -24,6 +24,7 @@ public class PopUpMgr : MonoBehaviour
 
     public void NextSlide()
     {
+        AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.select);
         slideIndex++;
 
         if (slideIndex >= images.Count)
@@ -41,6 +42,5 @@ public class PopUpMgr : MonoBehaviour
         gameUI.interactable = true;
         transform.parent.gameObject.SetActive(false);
         waveManager.BeginGame();
-        Debug.Log("game begun");
     }
 }

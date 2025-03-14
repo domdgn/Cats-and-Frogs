@@ -8,6 +8,8 @@ public class WaveManager : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform frogParent;
     private GameUIMgr gameUIMgr;
+    private CameraController cameraController;
+    [SerializeField] private CanvasGroup gameUI;
 
     [SerializeField] float buyTimer;
     private int currentWave = 0;
@@ -18,6 +20,7 @@ public class WaveManager : MonoBehaviour
     private void Awake()
     {
         gameUIMgr = FindObjectOfType<GameUIMgr>();
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     public void BeginGame()
@@ -36,14 +39,13 @@ public class WaveManager : MonoBehaviour
             currentWaveCoroutine = StartCoroutine(StartWave(currentWave));
             currentWave++;
         }
-        else
-        {
-            Debug.Log("All waves completed!");
-        }
     }
     IEnumerator StartWave(int waveIndex)
     {
-        Debug.Log("Starting wave: " + waves[waveIndex].waveName);
+        if (cameraController.isAtShop())
+        {
+            cameraController.MoveCamera();
+        }
 
         frogsAlive = 0;
         totalFrogsInWave = waves[waveIndex].enemies.Length;
@@ -83,7 +85,6 @@ public class WaveManager : MonoBehaviour
                 currentWaveCoroutine = null;
             }
 
-            Debug.Log("All enemies in wave defeated");
             BeginBuyPeriod(buyTimer);
         }
     }
@@ -93,18 +94,18 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator BuyPeriod(float buyTimer)
     {
-        Debug.Log($"timer begun. {buyTimer} seconds");
+        gameUI.interactable = true;
         remainingBuyTime = buyTimer;
 
         while (remainingBuyTime > 0)
         {
             gameUIMgr.UpdateTimer(remainingBuyTime);
             remainingBuyTime -= Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        Debug.Log("Buy period ended");
         gameUIMgr.UpdateTimer(0f);
+        gameUI.interactable = false;
         BeginNextWave();
     }
     public int GetNumberFrogs()

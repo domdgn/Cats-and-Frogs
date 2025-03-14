@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e40f6f3c762e744d89b6f672843b909, type: 3}
-  m_Name: BinCat
+  m_Name: CalicoCat
   m_EditorClassIdentifier: 
-  catName: Cat in Bin
-  sprite: {fileID: 52885591, guid: 65bd3e05f0ac51b4fb40e28258da8cba, type: 3}
-  health: 30
-  waitTime: 1
-  animatorController: {fileID: 9100000, guid: 4c412e53ea4b8a94aa6a0c41ba7d50bf, type: 2}
+  catName: Calico
+  idleSprite: {fileID: 127580722, guid: bcfceca9cf10bec46ad18630a1d0860d, type: 3}
+  delay: 0.25
+  health: 50
+  waitTime: 3
+  animatorController: {fileID: 9100000, guid: 72db7fda984eb48408c972b0960817f0, type: 2}
   damage: 10
   bulletSpeed: 5
-  catMode: 2
+  catMode: 0

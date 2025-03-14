@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     {
         //add transition
         SceneManager.LoadScene("Game");
+        AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.coinCollect);
     }
 
     //public void ChangeInteractability()

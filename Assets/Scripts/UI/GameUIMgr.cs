@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GameUIMgr : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI buyTimerText;
-    [SerializeField] private TextMeshProUGUI coinCountText;
+    [SerializeField] private TextMeshProUGUI buyTimerText, buyTimerShopText;
+    [SerializeField] private TextMeshProUGUI coinCountText, coinCountShopText;
     private string newText;
     public void UpdateTimer(float time)
     {
@@ -15,7 +15,17 @@ public class GameUIMgr : MonoBehaviour
         {
             newText = (time.ToString() + "s");
             buyTimerText.text = newText;
-            Debug.Log("timer text updated to" + newText);
+            buyTimerShopText.text = newText;
+        }
+    }
+
+    public void UpdateCoinCount(int  coinCount)
+    {
+        if (buyTimerText != null)
+        {
+            newText = (coinCount.ToString());
+            coinCountText.text = newText;
+            coinCountShopText.text = newText;
         }
     }
 }

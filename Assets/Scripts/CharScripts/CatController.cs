@@ -5,25 +5,22 @@ using UnityEngine;
 public class CatController : MonoBehaviour
 {
     private CatSO catData;
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
     private ProjectileFire projectileScript;
     private HealthScript healthScript;
+    private CatAnimationController animationController;
 
     private float damage;
     private float waitTime;
     private float speed;
-
-    private float delay = 0.2f;
+    private float delay;
     private Vector2 currentGridPosition;
 
     private void Awake()
     {
         projectileScript = GetComponent<ProjectileFire>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
         healthScript = GetComponent<HealthScript>();
         currentGridPosition = transform.position;
+        animationController = GetComponent<CatAnimationController>();
     }
 
     public void SetupCat(CatSO catType)
@@ -33,31 +30,21 @@ public class CatController : MonoBehaviour
         waitTime = catType.waitTime;
         damage = catType.damage;
         speed = catType.bulletSpeed;
+        delay = catType.delay;
 
-        if (spriteRenderer && catType.sprite)
-        {
-            spriteRenderer.sprite = catType.sprite;
-        }
-        if (animator && catType.animatorController)
-        {
-            animator.runtimeAnimatorController = catType.animatorController;
-        }
+        animationController.Initialise(catType.idleSprite, catType.animatorController);
 
         StartCoroutine(AttackAndWait(delay, waitTime));
     }
 
     private void Attack(float damage, float speed)
     {
+        animationController.PlayFireAnimation();
 
-        //MAKE THIS SYNC WITH ANIMATIONS AT SOME POINT
-        //animation events
-
-
-        if (projectileScript.enabled)
+        if (projectileScript && projectileScript.enabled)
         {
             projectileScript.Fire(damage, speed);
         }
-        else return;
     }
 
     IEnumerator AttackAndWait(float delay, float waitTime)
@@ -67,11 +54,11 @@ public class CatController : MonoBehaviour
         while (true)
         {
             Attack(damage, speed);
-            yield return new WaitForSeconds(waitTime);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(waitTime);
         }
     }
+
     public void TakeDamage(float amount)
     {
         healthScript.TakeDamage(amount);
@@ -80,6 +67,7 @@ public class CatController : MonoBehaviour
             DestroySelf();
         }
     }
+
     private void DestroySelf()
     {
         ContainerHandler.ClearPosition(currentGridPosition);

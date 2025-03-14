@@ -11,7 +11,8 @@ public enum CatType
 public class CatSO : ScriptableObject
 {
     public string catName;
-    public Sprite sprite;
+    public Sprite idleSprite;
+    public float delay;
     public float health = 100;
     public float waitTime = 1f;
     public RuntimeAnimatorController animatorController;

@@ -69,4 +69,9 @@ public class CameraController : MonoBehaviour
     {
         return moveDuration;
     }
+
+    public bool isAtShop()
+    {
+        return atShop;
+    }
 }

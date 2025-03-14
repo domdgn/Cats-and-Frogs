@@ -31,7 +31,7 @@ public class ShopSpawnScript : MonoBehaviour
         spawnedObject = Instantiate(spawnPrefab, touchPosition, Quaternion.identity);
         if (spawnedObject != null)
         {
-            Sprite sprite = catType.sprite;
+            Sprite sprite = catType.idleSprite;
             SpriteRenderer spriteRenderer = spawnedObject.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
 
@@ -48,7 +48,7 @@ public class ShopSpawnScript : MonoBehaviour
         previewCat = Instantiate(previewPrefab, touchPosition, Quaternion.identity);
         if (previewCat != null)
         {
-            Sprite sprite = catType.sprite;
+            Sprite sprite = catType.idleSprite;
             SpriteRenderer spriteRenderer = previewCat.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
 

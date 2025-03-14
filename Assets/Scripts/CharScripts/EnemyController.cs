@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     private EnemyAttackScript attackScript;
     private HealthScript healthScript;
+    private PondScript pondScript;
 
     private float health;
     private float waitTime;
@@ -32,6 +33,7 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         attackScript = GetComponent<EnemyAttackScript>();
         healthScript = GetComponent<HealthScript>();
+        pondScript = FindObjectOfType<PondScript>();
     }
 
     private void Start()
@@ -108,11 +110,8 @@ public class EnemyController : MonoBehaviour
 
     private void AtEnd()
     {
-        //atEnd = true;
-
-        Debug.Log("Frog Reached End");
+        pondScript.TakeDamage(damage);
         Die();
-
         //this is genuinely such bad code im embarrassed
     }
 

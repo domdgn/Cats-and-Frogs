@@ -9,6 +9,7 @@ public class ProjectileFire : MonoBehaviour
     private ProjectileCollision projCollisionScript;
     public void Fire(float damage, float speed)
     {
+        PlaySound();
         GameObject projectile = Instantiate(prefab, firePoint.position, Quaternion.identity);
         projCollisionScript = projectile.GetComponent<ProjectileCollision>();
 
@@ -19,5 +20,10 @@ public class ProjectileFire : MonoBehaviour
         {
             movement.SetupProjectile(damage, speed);
         }
+    }
+
+    private void PlaySound()
+    {
+        AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.gunFire);
     }
 }
