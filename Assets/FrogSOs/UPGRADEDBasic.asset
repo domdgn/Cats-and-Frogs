@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37c34211c8550be46aa8ac57980b1df2, type: 3}
-  m_Name: DariusFrog
+  m_Name: UPGRADEDBasic
   m_EditorClassIdentifier: 
-  enemyName: Darius Frog
-  sprite: {fileID: 21300000, guid: 6a5c8be26723ff0459aad8276efcc49a, type: 3}
-  health: 60
-  moveSpeed: 1.5
+  enemyName: UPGRADED
+  sprite: {fileID: 48743864, guid: 8c23ea0aa67a6694880671efc305ba36, type: 3}
+  health: 100
+  moveSpeed: 3
   waitTime: 1
-  damage: 10
-  scoreUponDeath: 10
-  animatorController: {fileID: 0}
+  damage: 30
+  scoreUponDeath: 30
+  animatorController: {fileID: 9100000, guid: 3914d87d1a1c8ac43a7661a6ea843112, type: 2}

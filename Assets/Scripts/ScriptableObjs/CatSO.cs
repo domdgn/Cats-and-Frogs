@@ -12,6 +12,7 @@ public class CatSO : ScriptableObject
 {
     public string catName;
     public Sprite idleSprite;
+    public Sprite altSprite;
     public float delay;
     public float health = 100;
     public float waitTime = 1f;

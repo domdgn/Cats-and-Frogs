@@ -6,6 +6,9 @@ public class PondScript : MonoBehaviour
 {
     public float health;
 
+    public delegate void GameOverEvent();
+    public event GameOverEvent OnGameOver;
+
     public void TakeDamage(float damage)
     {
         health -= damage;
@@ -29,6 +32,7 @@ public class PondScript : MonoBehaviour
 
     private void EndGame()
     {
+        OnGameOver?.Invoke();
         Debug.Log("GAME OVER!");
     }
 }

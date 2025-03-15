@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: BasicFrogTest
   m_EditorClassIdentifier: 
   enemyName: Basic Frog
-  sprite: {fileID: -1844621949, guid: a13f94730aa152e49a620a6d18e10aa1, type: 3}
-  health: 100
-  moveSpeed: 2.5
-  waitTime: 3
-  damage: 10
+  sprite: {fileID: 48743864, guid: a13f94730aa152e49a620a6d18e10aa1, type: 3}
+  health: 70
+  moveSpeed: 2
+  waitTime: 1
+  damage: 15
+  scoreUponDeath: 10
   animatorController: {fileID: 9100000, guid: 3914d87d1a1c8ac43a7661a6ea843112, type: 2}

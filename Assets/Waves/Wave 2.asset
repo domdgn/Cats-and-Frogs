@@ -10,32 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b64972fea833e74a976c1f68219757e, type: 3}
-  m_Name: Wave2 2
+  m_Name: Wave 2
   m_EditorClassIdentifier: 
-  waveName: Wave 3
+  waveName: 3
   enemies:
   - enemyType: {fileID: 11400000, guid: bd7fddc9ae044e04b8df14a4bd7d38c7, type: 2}
-    laneIndex: 1
+    laneIndex: 0
     spawnDelay: 0
   - enemyType: {fileID: 11400000, guid: bd7fddc9ae044e04b8df14a4bd7d38c7, type: 2}
-    laneIndex: 3
-    spawnDelay: 0
-  - enemyType: {fileID: 11400000, guid: c74d733a2f26e9043b29a5d7cc1b50b8, type: 2}
     laneIndex: 2
     spawnDelay: 0
   - enemyType: {fileID: 11400000, guid: bd7fddc9ae044e04b8df14a4bd7d38c7, type: 2}
     laneIndex: 4
-    spawnDelay: 3
-  - enemyType: {fileID: 11400000, guid: bd7fddc9ae044e04b8df14a4bd7d38c7, type: 2}
-    laneIndex: 2
-    spawnDelay: 3
-  - enemyType: {fileID: 11400000, guid: bd7fddc9ae044e04b8df14a4bd7d38c7, type: 2}
-    laneIndex: 3
-    spawnDelay: 3
-  - enemyType: {fileID: 11400000, guid: c74d733a2f26e9043b29a5d7cc1b50b8, type: 2}
-    laneIndex: 0
-    spawnDelay: 0
-  - enemyType: {fileID: 11400000, guid: c74d733a2f26e9043b29a5d7cc1b50b8, type: 2}
-    laneIndex: 0
     spawnDelay: 0
   waveDuration: 30

@@ -9,7 +9,6 @@ public class HealthScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        Debug.Log($"{this.gameObject.name} has {health} health");
     }
 
     public void AddHealth(float healthToAdd)

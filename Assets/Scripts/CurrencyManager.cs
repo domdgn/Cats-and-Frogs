@@ -6,7 +6,7 @@ using UnityEngine;
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance;
-    private int coinCount = 15;
+    [SerializeField] private int coinCount;
     private GameUIMgr GameUIMgr;
     void Awake()
     {

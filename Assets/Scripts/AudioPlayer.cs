@@ -13,7 +13,7 @@ public class AudioPlayer : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(transform.parent.gameObject);
+            DontDestroyOnLoad(gameObject);
 
             AudioSource[] sources = GetComponents<AudioSource>();
             if (sources.Length >= 2)

@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     private EnemyAttackScript attackScript;
     private HealthScript healthScript;
     private PondScript pondScript;
+    private CatAnimationController animController;
+    private ScoreManager scoreMgr;
 
     private float health;
     private float waitTime;
@@ -23,6 +25,7 @@ public class EnemyController : MonoBehaviour
     private Vector2 currentGridPosition;
     private int distToEnd = 9;
     private float delay;
+    private int scoreToAdd;
     private GameObject catToHurt;
 
     public delegate void DeathEvent();
@@ -34,6 +37,8 @@ public class EnemyController : MonoBehaviour
         attackScript = GetComponent<EnemyAttackScript>();
         healthScript = GetComponent<HealthScript>();
         pondScript = FindObjectOfType<PondScript>();
+        animController = GetComponent<CatAnimationController>();
+        scoreMgr = FindObjectOfType<ScoreManager>();
     }
 
     private void Start()
@@ -49,6 +54,7 @@ public class EnemyController : MonoBehaviour
         healthScript.health = enemyType.health;
         waitTime = enemyType.waitTime;
         delay = 0f;
+        scoreToAdd = enemyType.scoreUponDeath;
 
         if (spriteRenderer != null && enemyType.sprite != null)
         {
@@ -111,12 +117,14 @@ public class EnemyController : MonoBehaviour
     private void AtEnd()
     {
         pondScript.TakeDamage(damage);
-        Die();
+        OnDeath?.Invoke();
+        DestroySelf();
         //this is genuinely such bad code im embarrassed
     }
 
     public void TakeDamage(float amount)
     {
+        StartCoroutine(animController.HurtAnim());
         healthScript.TakeDamage(amount);
         if (healthScript.health <= 0)
         {
@@ -127,6 +135,7 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         OnDeath?.Invoke();
+        scoreMgr.IncreaseScoreBy(scoreToAdd);
         DestroySelf();
     }
 

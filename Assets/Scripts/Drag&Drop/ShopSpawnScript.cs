@@ -14,8 +14,8 @@ public class ShopSpawnScript : MonoBehaviour
     private GameObject spawnedObject;
     private CameraController cameraController;
     private ProjectileFire gunScript;
+    private BinCatScript binCatScript;
     //private Melee script
-    //private Coin collect script
 
     public Transform catParent;
 
@@ -69,17 +69,10 @@ public class ShopSpawnScript : MonoBehaviour
         spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity, catParent);
         CatController controller = spawnedObject.GetComponent<CatController>();
         ProjectileFire gunScript = spawnedObject.GetComponent<ProjectileFire>();
+        BinCatScript binCatScript = spawnedObject.GetComponent<BinCatScript>();
 
-        if (catToUse.catMode == CatType.Gun)
-        {
-            gunScript.enabled = true;
-            //Debug.Log("GUN ENABLED!!!");
-        }
-        else
-        {
-            gunScript.enabled = false;
-            //Debug.Log("GUN DISNABLED!!!");
-        }
+        gunScript.enabled = (catToUse.catMode == CatType.Gun);
+        binCatScript.enabled = (catToUse.catMode == CatType.CoinCollector);
 
         if (controller != null)
         {

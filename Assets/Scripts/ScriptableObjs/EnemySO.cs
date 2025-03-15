@@ -9,5 +9,6 @@ public class EnemySO : ScriptableObject
     public float moveSpeed = 1f;
     public float waitTime = 2.5f;
     public float damage = 10;
+    public int scoreUponDeath = 10;
     public RuntimeAnimatorController animatorController;
 }

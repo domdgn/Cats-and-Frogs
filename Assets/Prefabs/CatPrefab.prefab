@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7487501706596282602}
   - component: {fileID: 4683750064245364496}
   - component: {fileID: 6512113879806878576}
+  - component: {fileID: 437717877823423294}
   m_Layer: 0
   m_Name: CatPrefab
   m_TagString: Cat
@@ -135,7 +136,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.24}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!95 &3023535732240801419
 Animator:
@@ -236,8 +237,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1189faf2d02424ea1168aef16b1224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSprite: {fileID: 0}
-  fireSprite: {fileID: 0}
+--- !u!114 &437717877823423294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095638705370948051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bf315b4f437b34aad73775c934f286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5899468564451776418
 GameObject:
   m_ObjectHideFlags: 0

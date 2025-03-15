@@ -8,6 +8,7 @@ public class CatController : MonoBehaviour
     private ProjectileFire projectileScript;
     private HealthScript healthScript;
     private CatAnimationController animationController;
+    private BinCatScript binCatScript;
 
     private float damage;
     private float waitTime;
@@ -21,28 +22,35 @@ public class CatController : MonoBehaviour
         healthScript = GetComponent<HealthScript>();
         currentGridPosition = transform.position;
         animationController = GetComponent<CatAnimationController>();
+        binCatScript = GetComponent<BinCatScript>();
     }
 
     public void SetupCat(CatSO catType)
     {
-        catData = catType;
         healthScript.health = catType.health;
         waitTime = catType.waitTime;
         damage = catType.damage;
         speed = catType.bulletSpeed;
         delay = catType.delay;
 
-        animationController.Initialise(catType.idleSprite, catType.animatorController);
-
+        animationController.Initialise(catType.idleSprite, catType.altSprite, catType.animatorController);
+        if (catType.catMode == CatType.CoinCollector)
+        {
+            binCatScript.enabled = true;
+            binCatScript.InitialiseBinCat(waitTime);
+        }
+        else
+        {
+            binCatScript.enabled = false;
+        }
         StartCoroutine(AttackAndWait(delay, waitTime));
     }
 
     private void Attack(float damage, float speed)
     {
-        animationController.PlayFireAnimation();
-
         if (projectileScript && projectileScript.enabled)
         {
+            animationController.PlayDefaultAnimation();
             projectileScript.Fire(damage, speed);
         }
     }
@@ -62,6 +70,8 @@ public class CatController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         healthScript.TakeDamage(amount);
+
+        StartCoroutine(animationController.HurtAnim());
         if (healthScript.GetHealth() <= 0)
         {
             DestroySelf();

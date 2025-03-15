@@ -50,9 +50,16 @@ public class WaveManager : MonoBehaviour
         frogsAlive = 0;
         totalFrogsInWave = waves[waveIndex].enemies.Length;
 
+        float waveStartTime = Time.time;
+
         foreach (var enemySpawn in waves[waveIndex].enemies)
         {
-            yield return new WaitForSeconds(enemySpawn.spawnDelay);
+            float spawnTime = waveStartTime + enemySpawn.spawnDelay;
+            while (Time.time < spawnTime)
+            {
+                yield return null;
+            }
+
             int lane = Mathf.Clamp(enemySpawn.laneIndex, 0, spawnPoints.Length - 1);
             GameObject enemy = Instantiate(enemyPrefab, spawnPoints[lane].position, Quaternion.identity, frogParent);
             frogsAlive++;
@@ -61,10 +68,11 @@ public class WaveManager : MonoBehaviour
             if (controller != null)
             {
                 controller.SetupEnemy(enemySpawn.enemyType);
-                controller.OnDeath += FrogKilled; //subscribes frog to death event
+                controller.OnDeath += FrogKilled; // Subscribes frog to death event
             }
         }
 
+        // After all enemies are spawned, wait until all are killed before proceeding
         float timeElapsed = 0f;
         while (frogsAlive > 0)
         {
@@ -72,6 +80,7 @@ public class WaveManager : MonoBehaviour
             yield return null;
         }
     }
+
 
     public void FrogKilled()
     {

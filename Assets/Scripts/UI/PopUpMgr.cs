@@ -8,18 +8,33 @@ public class PopUpMgr : MonoBehaviour
     private int slideIndex = 0;
     private UIManager uiMgr;
     [SerializeField] private GameObject slideImage;
+    [SerializeField] private GameObject introBtn;
+    [SerializeField] private GameObject failText;
+    [SerializeField] private GameObject failBtn;
     [SerializeField] private List<Sprite> images;
     private Image UIImage;
     [SerializeField] private CanvasGroup gameUI;
     private WaveManager waveManager;
+    private Canvas canvas;
 
     private void Awake()
     {
-        transform.parent.gameObject.SetActive(true);
+        canvas = transform.parent.GetComponent<Canvas>();
         UIImage = slideImage.GetComponent<Image>();
         UIImage.sprite = images[slideIndex];
         uiMgr = UIManager.Instance;
         waveManager = FindObjectOfType<WaveManager>();
+
+        slideImage.SetActive(true);
+        introBtn.SetActive(true);
+        failBtn.SetActive(false);
+        failText.SetActive(false);
+
+        PondScript pondScript = FindObjectOfType<PondScript>();
+        if (pondScript != null)
+        {
+            pondScript.OnGameOver += ShowFailPopUp;
+        }
     }
 
     public void NextSlide()
@@ -40,7 +55,16 @@ public class PopUpMgr : MonoBehaviour
     private void ClosePopUp()
     {
         gameUI.interactable = true;
-        transform.parent.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
         waveManager.BeginGame();
+    }
+
+    public void ShowFailPopUp()
+    {
+        canvas.gameObject.SetActive(true);
+        slideImage.SetActive(false);
+        introBtn.SetActive(false);
+        failBtn.SetActive(true);
+        failText.SetActive(true);
     }
 }
