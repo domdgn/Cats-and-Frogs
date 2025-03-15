@@ -136,6 +136,7 @@ public class EnemyController : MonoBehaviour
     {
         OnDeath?.Invoke();
         scoreMgr.IncreaseScoreBy(scoreToAdd);
+        AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.frogDeath);
         DestroySelf();
     }
 

@@ -8,10 +8,12 @@ public class BinCatScript : MonoBehaviour
     private bool hasCoin = false;
     private bool isCoinRoutineRunning = false;
     private Sprite alt;
+    [SerializeField] private GameObject coinSpriteHeld;
 
     private void Awake()
     {
         animController = GetComponent<CatAnimationController>();
+        coinSpriteHeld.SetActive(false);
     }
 
     void Update()
@@ -27,12 +29,12 @@ public class BinCatScript : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
                 if (hit.collider != null && hit.collider.gameObject == gameObject && hasCoin)
                 {
-                    Debug.Log("Tapped Bin Cat");
                     CurrencyManager.Instance.SpendMoney(-5);
+                    AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.coinCollect);
                     hasCoin = false;
-
+                    coinSpriteHeld.SetActive(false);
                     animController.PlayDefaultAnimation();
-                    animController.SetSpriteColor(Color.white);
+                    //animController.SetSpriteColor(Color.white);
 
                     if (!isCoinRoutineRunning)
                     {
@@ -64,8 +66,9 @@ public class BinCatScript : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         hasCoin = true;
         animController.PlayWaitAnimation();
-        animController.SetSpriteColor(Color.green);
-        Debug.Log("Bin Cat has a coin!");
+        yield return new WaitForSeconds(1);
+        coinSpriteHeld.SetActive(true);
+        //animController.SetSpriteColor(Color.yellow);
         isCoinRoutineRunning = false;
     }
 }

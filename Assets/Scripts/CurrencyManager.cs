@@ -6,6 +6,8 @@ using UnityEngine;
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance;
+    public delegate void BalanceUpdatedEvent(int balance);
+    public event BalanceUpdatedEvent OnBalanceUpdated;
     [SerializeField] private int coinCount;
     private GameUIMgr GameUIMgr;
     void Awake()
@@ -22,10 +24,12 @@ public class CurrencyManager : MonoBehaviour
 
         GameUIMgr = FindObjectOfType<GameUIMgr>();
         SendCointCountToUI();
+        OnBalanceUpdated?.Invoke(coinCount);
     }
     public void SetMoney(int newCoinCount)
     {
         coinCount = newCoinCount;
+        OnBalanceUpdated?.Invoke(coinCount);
         SendCointCountToUI();
     }
 
@@ -37,6 +41,7 @@ public class CurrencyManager : MonoBehaviour
     public void SpendMoney(int moneySpent)
     {
         coinCount -= moneySpent;
+        OnBalanceUpdated?.Invoke(coinCount);
         SendCointCountToUI();
     }
 

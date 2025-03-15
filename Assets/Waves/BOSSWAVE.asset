@@ -15,6 +15,9 @@ MonoBehaviour:
   waveName: BOSS
   enemies:
   - enemyType: {fileID: 11400000, guid: ef292d684e4db964d86764c671344fca, type: 2}
+    laneIndex: 1
+    spawnDelay: 0
+  - enemyType: {fileID: 11400000, guid: ef292d684e4db964d86764c671344fca, type: 2}
     laneIndex: 3
-    spawnDelay: 3
+    spawnDelay: 0
   waveDuration: 30

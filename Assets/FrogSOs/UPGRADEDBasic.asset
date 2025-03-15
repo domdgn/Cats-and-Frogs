@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: UPGRADEDBasic
   m_EditorClassIdentifier: 
   enemyName: UPGRADED
-  sprite: {fileID: 48743864, guid: 8c23ea0aa67a6694880671efc305ba36, type: 3}
-  health: 100
+  sprite: {fileID: 1543510493, guid: 8c23ea0aa67a6694880671efc305ba36, type: 3}
+  health: 80
   moveSpeed: 3
   waitTime: 1
-  damage: 30
+  damage: 15
   scoreUponDeath: 30
-  animatorController: {fileID: 9100000, guid: 3914d87d1a1c8ac43a7661a6ea843112, type: 2}
+  animatorController: {fileID: 9100000, guid: ac2ae6a9a4cce41428bce0da34191a52, type: 2}

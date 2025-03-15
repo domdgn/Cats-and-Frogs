@@ -9,6 +9,7 @@ public class HealthScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.hurt);
     }
 
     public void AddHealth(float healthToAdd)

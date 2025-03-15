@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 92
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BasicFrogJump_0
+      name: UpgradedBasic_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a797ce96f199aff4799bd84be7fee684
-      internalID: 48743864
+      spriteID: 936db3532768df6499a5d91475b9b952
+      internalID: 1543510493
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_1
+      name: UpgradedBasic_1
       rect:
         serializedVersion: 2
         x: 128
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05f2e0590fecf9a4c85a1ea8e9e29def
-      internalID: 1759692898
+      spriteID: 34870268ef946e446896bdfe2ddf5d31
+      internalID: 215674165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_2
+      name: UpgradedBasic_2
       rect:
         serializedVersion: 2
         x: 256
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7152a548c3869cc4dbbe38ad96baebb8
-      internalID: -1785021705
+      spriteID: 754e344fa68cb234684fc4328750e89b
+      internalID: -1226661641
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_3
+      name: UpgradedBasic_3
       rect:
         serializedVersion: 2
         x: 384
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 698940e8442fc1948bc3339cf87ce922
-      internalID: 839483437
+      spriteID: cfb38c32558d95c4595c28b0a68a44c5
+      internalID: 644047354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_4
+      name: UpgradedBasic_4
       rect:
         serializedVersion: 2
         x: 512
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1eed749395278c349bbd5dee92eb93f3
-      internalID: -383090352
+      spriteID: 6c82114f5b0ab2144a79ad782f193f78
+      internalID: -1046369811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_5
+      name: UpgradedBasic_5
       rect:
         serializedVersion: 2
         x: 640
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97250018063520b438495bcf2603e6f0
-      internalID: 758936184
+      spriteID: 6ed165bac8c5dda43ac6e9023b511e13
+      internalID: -638748042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_6
+      name: UpgradedBasic_6
       rect:
         serializedVersion: 2
         x: 768
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23ad40b418530e648a58e52bea755b2c
-      internalID: -1003497643
+      spriteID: a41a8b523966d4b4c8367edf992c45e9
+      internalID: 1295525316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_7
+      name: UpgradedBasic_7
       rect:
         serializedVersion: 2
         x: 896
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bc5194b1cc7468479324460e96ae29b
-      internalID: 1160907516
+      spriteID: 33aaae201cf19a541b136ea0cf2561c8
+      internalID: 1423371999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_8
+      name: UpgradedBasic_8
       rect:
         serializedVersion: 2
         x: 1024
@@ -305,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f98ffc98f02f984abc4b8be3b407a68
-      internalID: -1645868468
+      spriteID: 2a7e544ec044c2c4ca665a1f728f9c3b
+      internalID: 569844429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_9
+      name: UpgradedBasic_9
       rect:
         serializedVersion: 2
         x: 1152
@@ -326,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34a19e0c5c8c3824bb70ee701f8f244d
-      internalID: -248051844
+      spriteID: 31b4e27d44b7354479e12b8f5dbbf46d
+      internalID: -1673797291
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BasicFrogJump_10
+      name: UpgradedBasic_10
       rect:
         serializedVersion: 2
         x: 1280
@@ -347,8 +347,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 005db160582006544931710466b7c34e
-      internalID: 2007667511
+      spriteID: 82a40f36d1f4f424f93e3e53330b7e06
+      internalID: 1972626821
       vertices: []
       indices: 
       edges: []
@@ -364,17 +364,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BasicFrogJump_0: 48743864
-      BasicFrogJump_1: 1759692898
-      BasicFrogJump_10: 2007667511
-      BasicFrogJump_2: -1785021705
-      BasicFrogJump_3: 839483437
-      BasicFrogJump_4: -383090352
-      BasicFrogJump_5: 758936184
-      BasicFrogJump_6: -1003497643
-      BasicFrogJump_7: 1160907516
-      BasicFrogJump_8: -1645868468
-      BasicFrogJump_9: -248051844
+      UpgradedBasic_0: 1543510493
+      UpgradedBasic_1: 215674165
+      UpgradedBasic_10: 1972626821
+      UpgradedBasic_2: -1226661641
+      UpgradedBasic_3: 644047354
+      UpgradedBasic_4: -1046369811
+      UpgradedBasic_5: -638748042
+      UpgradedBasic_6: 1295525316
+      UpgradedBasic_7: 1423371999
+      UpgradedBasic_8: 569844429
+      UpgradedBasic_9: -1673797291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

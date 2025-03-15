@@ -101,6 +101,7 @@ public class CatController : MonoBehaviour
         if (healthScript.GetHealth() <= 0)
         {
             DestroySelf();
+            AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.catDeath);
         }
     }
 

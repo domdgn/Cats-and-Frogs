@@ -18,5 +18,5 @@ MonoBehaviour:
   moveSpeed: 1.5
   waitTime: 1
   damage: 10
-  scoreUponDeath: 10
+  scoreUponDeath: 5
   animatorController: {fileID: 0}

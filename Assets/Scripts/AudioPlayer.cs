@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioPlayer : MonoBehaviour
 {
     public static AudioPlayer Instance;
-    public AudioClip gunFire, menuMusic, waitMusic, atkMusic, coinCollect, select;
+    public AudioClip blip, gunFire, menuMusic, waitMusic, atkMusic, coinCollect, select, hurt, catDeath, frogDeath, pondHurt, gameOver;
     private AudioSource musicSource;
     private AudioSource sfxSource;
     void Awake()

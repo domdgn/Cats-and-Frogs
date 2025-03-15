@@ -6,6 +6,8 @@ public class CardDragger : MonoBehaviour
     private LayerMask gridLayer;
     private ShopSpawnScript shopSpawnScript;
     [SerializeField] private int cost;
+    private SpriteRenderer backgroundSprite;
+    private bool canAfford;
 
     // Add a unique ID to each card dragger
     private static int nextInstanceId = 0;
@@ -13,8 +15,29 @@ public class CardDragger : MonoBehaviour
 
     void Awake()
     {
-        // Assign a unique ID to this instance
         instanceId = nextInstanceId++;
+
+        CurrencyManager currencyMgr = FindObjectOfType<CurrencyManager>();
+        if (currencyMgr != null)
+        {
+            currencyMgr.OnBalanceUpdated += UpdateCardInteractability;
+        }
+
+        backgroundSprite = GetComponent<SpriteRenderer>();
+    }
+
+    void UpdateCardInteractability(int balance)
+    {
+        if (balance < cost)
+        {
+            canAfford = false;
+            backgroundSprite.color = Color.gray;
+        }
+        else
+        {
+            canAfford = true;
+            backgroundSprite.color = Color.yellow;
+        }
     }
 
     void Start()
@@ -40,7 +63,7 @@ public class CardDragger : MonoBehaviour
             if (touch.phase == TouchPhase.Began && DragManager.isDragAllowed)
             {
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
-                if (hit.collider != null && hit.collider.gameObject == gameObject && CurrencyManager.Instance.GetCoinCount() >= cost)
+                if (hit.collider != null && hit.collider.gameObject == gameObject && canAfford)
                 {
                     // Remember which card started the drag
                     DragManager.isDragging = true;

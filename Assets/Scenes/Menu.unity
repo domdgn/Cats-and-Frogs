@@ -1251,6 +1251,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: blip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ebe2be8768472542aa841c885319a78, type: 3}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: hurt
+      value: 
+      objectReference: {fileID: 8300000, guid: d89eb7cc590b23c4890ec090b67db351, type: 3}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: atkMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 79f154a62210d0a428b0104180946aa9, type: 3}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: catDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 5300314b803e50b4880b1d58a4a223d1, type: 3}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 8300000, guid: 8c49fa330de7f6749a8922dae30e17cd, type: 3}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: pondHurt
+      value: 
+      objectReference: {fileID: 8300000, guid: 8374f234f7376b94d9f80f1956e3174f, type: 3}
+    - target: {fileID: 8403566059446594572, guid: 9621a92815e36544bb46d98d8993a738, type: 3}
+      propertyPath: frogDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 88fc3671e564ad74b83aa04dfff28d82, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
