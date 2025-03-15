@@ -5624,7 +5624,7 @@ PrefabInstance:
     - target: {fileID: 6519476395734728784, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -608760089, guid: 67ccec09edce59344b4af7208497191a, type: 3}
+      objectReference: {fileID: 1341770898, guid: a56ab35a5fa6fe14cb6be75aba666522, type: 3}
     - target: {fileID: 6519476395734728784, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
       propertyPath: m_SortingOrder
       value: 3
@@ -6272,7 +6272,8 @@ PrefabInstance:
       propertyPath: spawnPrefab
       value: 
       objectReference: {fileID: 1095638705370948051, guid: de87f427c484c174d8adb20fc546a771, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3708366313958988559, guid: d4e88d8ceff5ffc4b81e265fe8280a0f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -8696,7 +8697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cba65a57df76e4ebb1493d971bf498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCount: 25
+  coinCount: 999
 --- !u!1001 &1972297853
 PrefabInstance:
   m_ObjectHideFlags: 0

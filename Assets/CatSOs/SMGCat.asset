@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: SMGCat
   m_EditorClassIdentifier: 
   catName: SMGCat
-  idleSprite: {fileID: -608760089, guid: 67ccec09edce59344b4af7208497191a, type: 3}
-  altSprite: {fileID: -608760089, guid: 67ccec09edce59344b4af7208497191a, type: 3}
-  delay: 0.25
-  health: 30
+  delay: 0
+  health: 40
   waitTime: 0.25
-  animatorController: {fileID: 9100000, guid: 72db7fda984eb48408c972b0960817f0, type: 2}
-  damage: 2
+  idleSprite: {fileID: 1341770898, guid: a56ab35a5fa6fe14cb6be75aba666522, type: 3}
+  altSprite: {fileID: 1341770898, guid: a56ab35a5fa6fe14cb6be75aba666522, type: 3}
+  animatorController: {fileID: 9100000, guid: a86e99ae1783a4848ade4b5da38b9202, type: 2}
+  damage: 5
   bulletSpeed: 6
+  burstFire: 1
+  maxBurstShots: 3
+  burstWait: 1
   catMode: 0

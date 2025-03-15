@@ -12,10 +12,14 @@ public class CatController : MonoBehaviour
 
     private float damage;
     private float waitTime;
+    private bool burstFire;
     private float speed;
     private float delay;
     private Vector2 currentGridPosition;
+    private float burstWait;
 
+    private int shotsFired = 0;
+    private int maxShotsBurst;
     private void Awake()
     {
         projectileScript = GetComponent<ProjectileFire>();
@@ -32,6 +36,9 @@ public class CatController : MonoBehaviour
         damage = catType.damage;
         speed = catType.bulletSpeed;
         delay = catType.delay;
+        burstFire = catType.burstFire;
+        maxShotsBurst = catType.maxBurstShots;
+        burstWait = catType.burstWait;
 
         animationController.Initialise(catType.idleSprite, catType.altSprite, catType.animatorController);
         if (catType.catMode == CatType.CoinCollector)
@@ -59,11 +66,30 @@ public class CatController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        while (true)
+        if (burstFire)
         {
-            Attack(damage, speed);
-
-            yield return new WaitForSeconds(waitTime);
+            while (true)
+            {
+                if (shotsFired < maxShotsBurst)
+                {
+                    Attack(damage, speed);
+                    shotsFired++;
+                    yield return new WaitForSeconds(waitTime);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(burstWait);
+                    shotsFired = 0;
+                }
+            }
+        }
+        else
+        {
+            while (true)
+            {
+                Attack(damage, speed);
+                yield return new WaitForSeconds(waitTime);
+            }
         }
     }
 

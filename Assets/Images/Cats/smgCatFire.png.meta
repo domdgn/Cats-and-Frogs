@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 67ccec09edce59344b4af7208497191a
+guid: a56ab35a5fa6fe14cb6be75aba666522
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: smgCatPlaceholder2_0
+      name: smgCatFire_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b40da7e7292f6a40915eb0906c45acf
-      internalID: -608760089
+      spriteID: 696f2aaf89b8d4b41a9fce8013daa383
+      internalID: 1341770898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_1
+      name: smgCatFire_1
       rect:
         serializedVersion: 2
         x: 32
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6245825d9828ab4da89169438fdf4ad
-      internalID: -1549801533
+      spriteID: 48ad698888dce424e8f62b1b8e394714
+      internalID: 757816178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_2
+      name: smgCatFire_2
       rect:
         serializedVersion: 2
         x: 64
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: adbfaf6d839b1d848bad5a118a091e6b
-      internalID: -12356230
+      spriteID: dd81a1a928fe4e343baf144ac997e494
+      internalID: -855916608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_3
+      name: smgCatFire_3
       rect:
         serializedVersion: 2
         x: 96
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 847b9bf46fa66c44681af8f8c5d117d3
-      internalID: 1674149404
+      spriteID: ffccf5c3aaa753941be8dfc5cf3adbd6
+      internalID: 1590413400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_4
+      name: smgCatFire_4
       rect:
         serializedVersion: 2
         x: 128
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e655f17af4a679b429c453e723f83565
-      internalID: 417374105
+      spriteID: a6a050f2f2251d541ae5edadfcb7e27b
+      internalID: 1044679911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_5
+      name: smgCatFire_5
       rect:
         serializedVersion: 2
         x: 160
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4fe31f7048509e459184b5a51f5ff8d
-      internalID: 765355797
+      spriteID: 9d462171b4145ce43a62a89b4eea3144
+      internalID: 1511241397
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_6
+      name: smgCatFire_6
       rect:
         serializedVersion: 2
         x: 192
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2edb6a33a5987854aa514e41e06e9b45
-      internalID: 1654509452
+      spriteID: 380bddf56f2357040bb2f3f862b4e6f5
+      internalID: 1430273391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smgCatPlaceholder2_7
+      name: smgCatFire_7
       rect:
         serializedVersion: 2
         x: 224
@@ -284,8 +284,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44f78586eedf0db40b73b7c1c15872d7
-      internalID: 981784294
+      spriteID: bcf1531b63d2ab14f99e82fd2e8594c5
+      internalID: -938477680
       vertices: []
       indices: 
       edges: []
@@ -301,14 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      smgCatPlaceholder2_0: -608760089
-      smgCatPlaceholder2_1: -1549801533
-      smgCatPlaceholder2_2: -12356230
-      smgCatPlaceholder2_3: 1674149404
-      smgCatPlaceholder2_4: 417374105
-      smgCatPlaceholder2_5: 765355797
-      smgCatPlaceholder2_6: 1654509452
-      smgCatPlaceholder2_7: 981784294
+      smgCatFire_0: 1341770898
+      smgCatFire_1: 757816178
+      smgCatFire_2: -855916608
+      smgCatFire_3: 1590413400
+      smgCatFire_4: 1044679911
+      smgCatFire_5: 1511241397
+      smgCatFire_6: 1430273391
+      smgCatFire_7: -938477680
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
