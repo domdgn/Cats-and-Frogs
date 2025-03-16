@@ -589,9 +589,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.08549222
     width: 1
-    height: 1
+    height: 0.8290155
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1091,8 +1091,8 @@ Camera:
   m_GameObject: {fileID: 2134331429}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.0627451, g: 0.39607847, b: 0.1254902, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1110,9 +1110,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.08549222
     width: 1
-    height: 1
+    height: 0.8290155
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
