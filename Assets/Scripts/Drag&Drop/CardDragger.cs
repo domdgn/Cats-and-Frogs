@@ -1,7 +1,7 @@
 using UnityEngine;
+
 public class CardDragger : MonoBehaviour
 {
-    private Vector3 touchPosition;
     private CameraController cameraController;
     private LayerMask gridLayer;
     private ShopSpawnScript shopSpawnScript;
@@ -26,6 +26,26 @@ public class CardDragger : MonoBehaviour
         backgroundSprite = GetComponent<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        // Subscribe to touch events
+        if (TouchManager.Instance != null)
+        {
+            TouchManager.Instance.OnTouchBegan += HandleTouchBegan;
+            TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
+        }
+    }
+
+    void OnDisable()
+    {
+        // Unsubscribe from touch events
+        if (TouchManager.Instance != null)
+        {
+            TouchManager.Instance.OnTouchBegan -= HandleTouchBegan;
+            TouchManager.Instance.OnTouchEnded -= HandleTouchEnded;
+        }
+    }
+
     void UpdateCardInteractability(int balance)
     {
         if (balance < cost)
@@ -47,63 +67,57 @@ public class CardDragger : MonoBehaviour
         gridLayer = LayerMask.GetMask("TileGrid");
     }
 
+    private void HandleTouchBegan(Vector3 touchPosition, Touch touch)
+    {
+        if (!CameraController.atShop || !DragManager.isDragAllowed)
+            return;
+
+        if (TouchManager.Instance.IsObjectTouched(gameObject, touchPosition) && canAfford)
+        {
+            // Remember which card started the drag
+            DragManager.isDragging = true;
+            DragManager.currentDraggingId = instanceId;
+            shopSpawnScript.SpawnPreviewCat(touchPosition);
+        }
+    }
+
+    private void HandleTouchEnded(Vector3 touchPosition, Touch touch)
+    {
+        if (!DragManager.isDragging || DragManager.currentDraggingId != instanceId)
+            return;
+
+        RaycastHit2D hit;
+        if (TouchManager.Instance.RaycastOnLayer(touchPosition, gridLayer, out hit))
+        {
+            Vector2 gridPosition = hit.collider.transform.position;
+            if (!ContainerHandler.IsPositionOccupied(gridPosition))
+            {
+                DragManager.isDragging = false;
+                shopSpawnScript.RemovePreviewCat();
+                shopSpawnScript.DeployCat(gridPosition);
+                CurrencyManager.Instance.SpendMoney(cost);
+                ContainerHandler.OccupyPosition(gridPosition, shopSpawnScript.GetSpawnedObject());
+            }
+            else
+            {
+                DragManager.isDragging = false;
+                shopSpawnScript.RemovePreviewCat();
+                Debug.LogWarning("Position already occupied");
+            }
+        }
+        else
+        {
+            DragManager.isDragging = false;
+            shopSpawnScript.RemovePreviewCat();
+            Debug.LogWarning("Placement outside of grid not allowed");
+        }
+    }
+
     void Update()
     {
         if (!CameraController.atShop)
         {
             DragManager.isDragAllowed = false;
-        }
-
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0;
-
-            if (touch.phase == TouchPhase.Began && DragManager.isDragAllowed)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
-                if (hit.collider != null && hit.collider.gameObject == gameObject && canAfford)
-                {
-                    // Remember which card started the drag
-                    DragManager.isDragging = true;
-                    DragManager.currentDraggingId = instanceId;
-                    shopSpawnScript.SpawnPreviewCat(touchPosition);
-                }
-            }
-
-            if (touch.phase == TouchPhase.Ended && DragManager.isDragging)
-            {
-                // Only process the end event if this is the card that started the drag
-                if (DragManager.currentDraggingId == instanceId)
-                {
-                    RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, gridLayer);
-                    if (hit.collider != null)
-                    {
-                        Vector2 gridPosition = hit.collider.transform.position;
-                        if (!ContainerHandler.IsPositionOccupied(gridPosition))
-                        {
-                            DragManager.isDragging = false;
-                            shopSpawnScript.RemovePreviewCat();
-                            shopSpawnScript.DeployCat(gridPosition);
-                            CurrencyManager.Instance.SpendMoney(cost);
-                            ContainerHandler.OccupyPosition(gridPosition, shopSpawnScript.GetSpawnedObject());
-                        }
-                        else
-                        {
-                            DragManager.isDragging = false;
-                            shopSpawnScript.RemovePreviewCat();
-                            Debug.LogWarning("Position already occupied");
-                        }
-                    }
-                    else
-                    {
-                        DragManager.isDragging = false;
-                        shopSpawnScript.RemovePreviewCat();
-                        Debug.LogWarning("Placement outside of grid not allowed");
-                    }
-                }
-            }
         }
     }
 

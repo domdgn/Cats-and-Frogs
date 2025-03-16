@@ -8,18 +8,19 @@ public class PondScript : MonoBehaviour
 
     public delegate void GameOverEvent();
     public event GameOverEvent OnGameOver;
-    public delegate void OnPondHurtEvent(float health);
-    public event OnPondHurtEvent OnPondHurt;
+    public delegate void UpdatePondHealthEvent(float health);
+    public event UpdatePondHealthEvent UpdatePondUI;
 
     private void Awake()
     {
-        OnPondHurt?.Invoke(health);
+        UpdateUI();
     }
     public void TakeDamage(float damage)
     {
         health -= damage;
-        OnPondHurt?.Invoke(health);
         AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.pondHurt);
+
+        UpdateUI();
 
         if ( health <= 0 )
         {
@@ -31,6 +32,7 @@ public class PondScript : MonoBehaviour
     public void AddHealth(float healthToAdd)
     {
         health += healthToAdd;
+        UpdateUI();
     }
 
     public float GetPondHealth()
@@ -42,5 +44,10 @@ public class PondScript : MonoBehaviour
     {
         OnGameOver?.Invoke();
         Debug.Log("GAME OVER!");
+    }
+
+    private void UpdateUI()
+    {
+        UpdatePondUI?.Invoke(health);
     }
 }

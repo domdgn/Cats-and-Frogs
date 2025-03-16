@@ -11,6 +11,7 @@ TagManager:
   - Frog
   - Projectile
   - Pond
+  - temp
   layers:
   - Default
   - TransparentFX

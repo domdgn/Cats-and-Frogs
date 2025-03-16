@@ -10,7 +10,7 @@ public class GameUIMgr : MonoBehaviour
     [SerializeField] private TextMeshProUGUI buyTimerText, buyTimerShopText;
     [SerializeField] private TextMeshProUGUI coinCountText, coinCountShopText;
     [SerializeField] private TextMeshProUGUI onScreenScore, failScreenScore;
-    [SerializeField] private TextMeshProUGUI pondHealth;
+    [SerializeField] private TextMeshProUGUI pondHealth, pondhealthShop;
     private string newText;
 
     private ScoreManager scoreMgr;
@@ -23,13 +23,14 @@ public class GameUIMgr : MonoBehaviour
         if (pondScript != null)
         {
             pondScript.OnGameOver += GameFailed;
-            pondScript.OnPondHurt += UpdatePondHealthText;
+            pondScript.UpdatePondUI += UpdatePondHealthText;
         }
     }
     public void UpdatePondHealthText(float health)
     {
         newText = health.ToString();
         pondHealth.text = newText;
+        pondhealthShop.text = newText;
     }
     public void UpdateTimer(int time)
     {
