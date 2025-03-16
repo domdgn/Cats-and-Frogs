@@ -39,14 +39,15 @@ public class BinCatScript : MonoBehaviour
     {
         if (TouchManager.Instance.IsObjectTouched(gameObject, touchPosition))
         {
-            //Debug.Log("Bin Cat Touched");
+            Debug.Log("Bin Cat Touched");
+
             if (!hasCoin) return;
+            isCoinRoutineRunning = false;
             CurrencyManager.Instance.SpendMoney(-5);
             AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.coinCollect);
             coinSpriteHeld.SetActive(false);
             animController.PlayDefaultAnimation();
             hasCoin = false;
-            if (!isCoinRoutineRunning) return;
             StartCoroutine(CoinSpawnRoutine());
         }
     }
@@ -59,25 +60,22 @@ public class BinCatScript : MonoBehaviour
     IEnumerator StartBin(float timeToWait)
     {
         yield return new WaitForSeconds(timeToWait);
-        if (!isCoinRoutineRunning)
-        {
-            StartCoroutine(CoinSpawnRoutine());
-        }
+        StartCoroutine(CoinSpawnRoutine());
     }
 
     IEnumerator CoinSpawnRoutine()
     {
-        //Debug.Log("Starting coin routine");
+        Debug.Log("Starting coin routine");
         isCoinRoutineRunning = true;
         float waitTime = Random.Range(5f, 10f);
-        //Debug.Log($"Waiting for {waitTime} seconds");
+        Debug.Log($"Waiting for {waitTime} seconds");
         yield return new WaitForSeconds(waitTime);
         //Debug.Log("Playing wait animation");
         animController.PlayWaitAnimation();
         yield return new WaitForSeconds(0.25f);
-        //Debug.Log("Coin ready");
-        hasCoin = true;
+        Debug.Log("Coin ready");
         coinSpriteHeld.SetActive(true);
-        isCoinRoutineRunning = false;
+        yield return null;
+        hasCoin = true;
     }
 }

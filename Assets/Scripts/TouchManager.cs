@@ -38,6 +38,7 @@ public class TouchManager : MonoBehaviour
         {
             case TouchPhase.Began:
                 currentTouchedObject = GetTouchedObject(touchPosition);
+                //Debug.Log("touch started");
                 OnTouchBegan?.Invoke(touchPosition, touch);
                 break;
 
@@ -49,6 +50,7 @@ public class TouchManager : MonoBehaviour
             case TouchPhase.Canceled:
                 OnTouchEnded?.Invoke(touchPosition, touch);
                 currentTouchedObject = null;
+                //Debug.Log("Touch ended");
                 break;
         }
     }

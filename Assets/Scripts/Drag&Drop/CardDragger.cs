@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CardDragger : MonoBehaviour
@@ -28,12 +29,20 @@ public class CardDragger : MonoBehaviour
 
     void OnEnable()
     {
-        // Subscribe to touch events
-        if (TouchManager.Instance != null)
+        StartCoroutine(WaitForTouchManager());
+    }
+
+    IEnumerator WaitForTouchManager()
+    {
+        while (TouchManager.Instance == null)
         {
-            TouchManager.Instance.OnTouchBegan += HandleTouchBegan;
-            TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
+            Debug.LogWarning("Waiting for TouchManager...");
+            yield return null;
         }
+
+        Debug.Log("TouchManager found, subscribing to events.");
+        TouchManager.Instance.OnTouchBegan += HandleTouchBegan;
+        TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
     }
 
     void OnDisable()
@@ -69,6 +78,7 @@ public class CardDragger : MonoBehaviour
 
     private void HandleTouchBegan(Vector3 touchPosition, Touch touch)
     {
+        //Debug.Log("Card Dragger touch begin handler");
         if (!CameraController.atShop || !DragManager.isDragAllowed)
             return;
 
@@ -83,6 +93,7 @@ public class CardDragger : MonoBehaviour
 
     private void HandleTouchEnded(Vector3 touchPosition, Touch touch)
     {
+        //Debug.Log("Card Dragger touch end handler");
         if (!DragManager.isDragging || DragManager.currentDraggingId != instanceId)
             return;
 

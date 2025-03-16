@@ -9,13 +9,36 @@ public class HealthBoostBuy : MonoBehaviour
     private PondScript pondScript;
     [SerializeField] private float healthBoostAmt;
     [SerializeField] private int cost;
+    private SpriteRenderer backgroundSprite;
     private void Awake()
     {
         pondScript = FindObjectOfType<PondScript>();
+
+        CurrencyManager currencyMgr = FindObjectOfType<CurrencyManager>();
+        if (currencyMgr != null)
+        {
+            currencyMgr.OnBalanceUpdated += UpdateCardInteractability;
+        }
+
+        backgroundSprite = GetComponent<SpriteRenderer>();
     }
 
 
     // NO MATTER WHAT I DID, I CANT GET THIS TO WORK WITH TOUCHMANAGER... FML
+    // need to delay subscribing
+
+    void UpdateCardInteractability(int balance)
+    {
+        if (balance < cost)
+        {
+            backgroundSprite.color = Color.gray;
+        }
+        else
+        {
+            backgroundSprite.color = Color.yellow;
+        }
+    }
+
     private void Update()
     {
         if (Input.touchCount > 0)
