@@ -67,7 +67,7 @@ public class BinCatScript : MonoBehaviour
     {
         Debug.Log("Starting coin routine");
         isCoinRoutineRunning = true;
-        float waitTime = Random.Range(5f, 10f);
+        float waitTime = Random.Range(7.5f, 15f);
         Debug.Log($"Waiting for {waitTime} seconds");
         yield return new WaitForSeconds(waitTime);
         //Debug.Log("Playing wait animation");

@@ -22,7 +22,7 @@ public class CoinScript : MonoBehaviour
         startPos = transform.position;
         mainCamera = Camera.main;
         originalScale = transform.localScale;
-        coinValue = Random.Range(-7, -3);
+        coinValue = Random.Range(-5, -1);
         SetRandomPositionOnScreen();
         StartCoroutine(waitThenDie());
     }

@@ -19,10 +19,6 @@ public class CardDragger : MonoBehaviour
         instanceId = nextInstanceId++;
 
         CurrencyManager currencyMgr = FindObjectOfType<CurrencyManager>();
-        if (currencyMgr != null)
-        {
-            currencyMgr.OnBalanceUpdated += UpdateCardInteractability;
-        }
 
         backgroundSprite = GetComponent<SpriteRenderer>();
     }
@@ -40,9 +36,19 @@ public class CardDragger : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("TouchManager found, subscribing to events.");
+        while (CurrencyManager.Instance == null)
+        {
+            Debug.LogWarning("Waiting for Currency Manager...");
+            yield return null;
+        }
+
+        //Debug.Log("TouchManager found, subscribing to events.");
         TouchManager.Instance.OnTouchBegan += HandleTouchBegan;
         TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
+
+        CurrencyManager.Instance.OnBalanceUpdated += UpdateCardInteractability;
+        yield return null;
+        CurrencyManager.Instance.UpdateCurrency();
     }
 
     void OnDisable()
