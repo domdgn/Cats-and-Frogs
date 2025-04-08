@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class BinCatScript : MonoBehaviour
 {
-    private Vector3 touchPosition;
     private CatAnimationController animController;
     private bool hasCoin = false;
     private bool isCoinRoutineRunning = false;
-    private Sprite alt;
     [SerializeField] private GameObject coinSpriteHeld;
 
     private void Awake()
@@ -16,32 +14,41 @@ public class BinCatScript : MonoBehaviour
         coinSpriteHeld.SetActive(false);
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Input.touchCount > 0)
+        // Subscribe to touch events
+        if (TouchManager.Instance != null)
         {
-            Touch touch = Input.GetTouch(0);
-            touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0;
+            TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
+        }
+    }
 
-            if (touch.phase == TouchPhase.Ended)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
-                if (hit.collider != null && hit.collider.gameObject == gameObject && hasCoin)
-                {
-                    CurrencyManager.Instance.SpendMoney(-5);
-                    AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.coinCollect);
-                    hasCoin = false;
-                    coinSpriteHeld.SetActive(false);
-                    animController.PlayDefaultAnimation();
-                    //animController.SetSpriteColor(Color.white);
+    private void OnDisable()
+    {
+        // Unsubscribe from touch events
+        if (TouchManager.Instance != null)
+        {
+            TouchManager.Instance.OnTouchEnded -= HandleTouchEnded;
+        }
 
-                    if (!isCoinRoutineRunning)
-                    {
-                        StartCoroutine(CoinSpawnRoutine());
-                    }
-                }
-            }
+        StopAllCoroutines();
+        isCoinRoutineRunning = false;
+    }
+
+    private void HandleTouchEnded(Vector3 touchPosition, Touch touch)
+    {
+        if (TouchManager.Instance.IsObjectTouched(gameObject, touchPosition))
+        {
+            Debug.Log("Bin Cat Touched");
+
+            if (!hasCoin) return;
+            isCoinRoutineRunning = false;
+            CurrencyManager.Instance.SpendMoney(-5);
+            AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.coinCollect);
+            coinSpriteHeld.SetActive(false);
+            animController.PlayDefaultAnimation();
+            hasCoin = false;
+            StartCoroutine(CoinSpawnRoutine());
         }
     }
 
@@ -53,22 +60,22 @@ public class BinCatScript : MonoBehaviour
     IEnumerator StartBin(float timeToWait)
     {
         yield return new WaitForSeconds(timeToWait);
-        if (!isCoinRoutineRunning)
-        {
-            StartCoroutine(CoinSpawnRoutine());
-        }
+        StartCoroutine(CoinSpawnRoutine());
     }
 
     IEnumerator CoinSpawnRoutine()
     {
+        Debug.Log("Starting coin routine");
         isCoinRoutineRunning = true;
-        float waitTime = Random.Range(5f, 10f);
+        float waitTime = Random.Range(7.5f, 15f);
+        Debug.Log($"Waiting for {waitTime} seconds");
         yield return new WaitForSeconds(waitTime);
-        hasCoin = true;
+        //Debug.Log("Playing wait animation");
         animController.PlayWaitAnimation();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.25f);
+        Debug.Log("Coin ready");
         coinSpriteHeld.SetActive(true);
-        //animController.SetSpriteColor(Color.yellow);
-        isCoinRoutineRunning = false;
+        yield return null;
+        hasCoin = true;
     }
 }

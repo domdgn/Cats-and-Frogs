@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: UPGRADED
   sprite: {fileID: 1543510493, guid: 8c23ea0aa67a6694880671efc305ba36, type: 3}
-  health: 80
+  health: 100
   moveSpeed: 3
   waitTime: 1
   damage: 15

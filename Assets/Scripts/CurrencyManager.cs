@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
@@ -10,6 +9,11 @@ public class CurrencyManager : MonoBehaviour
     public event BalanceUpdatedEvent OnBalanceUpdated;
     [SerializeField] private int coinCount;
     private GameUIMgr GameUIMgr;
+
+    private void OnEnable()
+    {
+        OnBalanceUpdated?.Invoke(coinCount);
+    }
     void Awake()
     {
         if (Instance == null)
@@ -46,4 +50,9 @@ public class CurrencyManager : MonoBehaviour
     }
 
     public int GetCoinCount() { return coinCount; }
+
+    public void UpdateCurrency()
+    {
+        OnBalanceUpdated?.Invoke(coinCount);
+    }
 }
