@@ -4,6 +4,7 @@ using UnityEngine;
 public class BinCatScript : MonoBehaviour
 {
     private CatAnimationController animController;
+    private InputManager inputManager;
     private bool hasCoin = false;
     private bool isCoinRoutineRunning = false;
     [SerializeField] private GameObject coinSpriteHeld;
@@ -16,32 +17,42 @@ public class BinCatScript : MonoBehaviour
 
     private void OnEnable()
     {
-        // Subscribe to touch events
-        if (TouchManager.Instance != null)
+        StartCoroutine(WaitForInputManager());
+    }
+
+    IEnumerator WaitForInputManager()
+    {
+        while (InputManager.Instance == null)
         {
-            TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
+            Debug.LogWarning("Waiting for InputManager...");
+            yield return null;
         }
+
+        inputManager = InputManager.Instance;
+        inputManager.OnInputEnded += HandleInputEnded;
+
+        Debug.Log("InputManager found, subscribed to events.");
     }
 
     private void OnDisable()
     {
-        // Unsubscribe from touch events
-        if (TouchManager.Instance != null)
+        // Unsubscribe from input events
+        if (inputManager != null)
         {
-            TouchManager.Instance.OnTouchEnded -= HandleTouchEnded;
+            inputManager.OnInputEnded -= HandleInputEnded;
         }
 
         StopAllCoroutines();
         isCoinRoutineRunning = false;
     }
 
-    private void HandleTouchEnded(Vector3 touchPosition, Touch touch)
+    private void HandleInputEnded(Vector3 inputPosition, InputManager.InputData inputData)
     {
-        if (TouchManager.Instance.IsObjectTouched(gameObject, touchPosition))
+        if (inputManager.IsObjectTouched(gameObject, inputPosition))
         {
             Debug.Log("Bin Cat Touched");
-
             if (!hasCoin) return;
+
             isCoinRoutineRunning = false;
             CurrencyManager.Instance.SpendMoney(-5);
             AudioPlayer.Instance.PlaySFX(AudioPlayer.Instance.coinCollect);
@@ -67,12 +78,15 @@ public class BinCatScript : MonoBehaviour
     {
         Debug.Log("Starting coin routine");
         isCoinRoutineRunning = true;
+
         float waitTime = Random.Range(7.5f, 15f);
         Debug.Log($"Waiting for {waitTime} seconds");
         yield return new WaitForSeconds(waitTime);
+
         //Debug.Log("Playing wait animation");
         animController.PlayWaitAnimation();
         yield return new WaitForSeconds(0.25f);
+
         Debug.Log("Coin ready");
         coinSpriteHeld.SetActive(true);
         yield return null;

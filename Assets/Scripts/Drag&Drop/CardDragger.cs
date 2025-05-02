@@ -4,6 +4,7 @@ using UnityEngine;
 public class CardDragger : MonoBehaviour
 {
     private CameraController cameraController;
+    private InputManager inputManager;
     private LayerMask gridLayer;
     private ShopSpawnScript shopSpawnScript;
     [SerializeField] private int cost;
@@ -17,34 +18,36 @@ public class CardDragger : MonoBehaviour
     void Awake()
     {
         instanceId = nextInstanceId++;
-
-        CurrencyManager currencyMgr = FindObjectOfType<CurrencyManager>();
-
         backgroundSprite = GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()
     {
-        StartCoroutine(WaitForTouchManager());
+        StartCoroutine(WaitForDependencies());
     }
 
-    IEnumerator WaitForTouchManager()
+    IEnumerator WaitForDependencies()
     {
-        while (TouchManager.Instance == null)
+        // Wait for InputManager to initialize
+        while (InputManager.Instance == null)
         {
-            Debug.LogWarning("Waiting for TouchManager...");
+            Debug.LogWarning("Waiting for InputManager...");
             yield return null;
         }
 
+        // Cache reference to InputManager
+        inputManager = InputManager.Instance;
+
+        // Wait for CurrencyManager to initialize
         while (CurrencyManager.Instance == null)
         {
             Debug.LogWarning("Waiting for Currency Manager...");
             yield return null;
         }
 
-        //Debug.Log("TouchManager found, subscribing to events.");
-        TouchManager.Instance.OnTouchBegan += HandleTouchBegan;
-        TouchManager.Instance.OnTouchEnded += HandleTouchEnded;
+        //Debug.Log("InputManager found, subscribing to events.");
+        inputManager.OnInputBegan += HandleInputBegan;
+        inputManager.OnInputEnded += HandleInputEnded;
 
         CurrencyManager.Instance.OnBalanceUpdated += UpdateCardInteractability;
         yield return null;
@@ -53,11 +56,16 @@ public class CardDragger : MonoBehaviour
 
     void OnDisable()
     {
-        // Unsubscribe from touch events
-        if (TouchManager.Instance != null)
+        // Unsubscribe from events
+        if (inputManager != null)
         {
-            TouchManager.Instance.OnTouchBegan -= HandleTouchBegan;
-            TouchManager.Instance.OnTouchEnded -= HandleTouchEnded;
+            inputManager.OnInputBegan -= HandleInputBegan;
+            inputManager.OnInputEnded -= HandleInputEnded;
+        }
+
+        if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.OnBalanceUpdated -= UpdateCardInteractability;
         }
     }
 
@@ -82,29 +90,29 @@ public class CardDragger : MonoBehaviour
         gridLayer = LayerMask.GetMask("TileGrid");
     }
 
-    private void HandleTouchBegan(Vector3 touchPosition, Touch touch)
+    private void HandleInputBegan(Vector3 inputPosition, InputManager.InputData inputData)
     {
-        //Debug.Log("Card Dragger touch begin handler");
+        //Debug.Log("Card Dragger input begin handler");
         if (!CameraController.atShop || !DragManager.isDragAllowed)
             return;
 
-        if (TouchManager.Instance.IsObjectTouched(gameObject, touchPosition) && canAfford)
+        if (inputManager.IsObjectTouched(gameObject, inputPosition) && canAfford)
         {
             // Remember which card started the drag
             DragManager.isDragging = true;
             DragManager.currentDraggingId = instanceId;
-            shopSpawnScript.SpawnPreviewCat(touchPosition);
+            shopSpawnScript.SpawnPreviewCat(inputPosition);
         }
     }
 
-    private void HandleTouchEnded(Vector3 touchPosition, Touch touch)
+    private void HandleInputEnded(Vector3 inputPosition, InputManager.InputData inputData)
     {
-        //Debug.Log("Card Dragger touch end handler");
+        //Debug.Log("Card Dragger input end handler");
         if (!DragManager.isDragging || DragManager.currentDraggingId != instanceId)
             return;
 
         RaycastHit2D hit;
-        if (TouchManager.Instance.RaycastOnLayer(touchPosition, gridLayer, out hit))
+        if (inputManager.RaycastOnLayer(inputPosition, gridLayer, out hit))
         {
             Vector2 gridPosition = hit.collider.transform.position;
             if (!ContainerHandler.IsPositionOccupied(gridPosition))
@@ -141,14 +149,16 @@ public class CardDragger : MonoBehaviour
     void LateUpdate()
     {
         // Only move the preview if this is the card that started the drag
-        if (DragManager.isDragging && DragManager.currentDraggingId == instanceId && Input.touchCount > 0)
+        if (DragManager.isDragging && DragManager.currentDraggingId == instanceId)
         {
-            Vector3 TouchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            TouchPosition.z = 0;
+            // Get current input position regardless of input type (touch or mouse)
+            Vector3 inputPosition = inputManager.GetCurrentInputPosition();
+            inputPosition.z = 0;
+
             GameObject spawnedObject = shopSpawnScript.GetSpawnedObject();
             if (spawnedObject != null)
             {
-                spawnedObject.transform.position = TouchPosition;
+                spawnedObject.transform.position = inputPosition;
             }
         }
     }

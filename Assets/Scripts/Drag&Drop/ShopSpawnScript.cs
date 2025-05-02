@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,49 +12,58 @@ public class ShopSpawnScript : MonoBehaviour
     private static GameObject previewCat;
     private GameObject spawnedObject;
     private CameraController cameraController;
-    private ProjectileFire gunScript;
-    private BinCatScript binCatScript;
-    //private Melee script
-
-    public Transform catParent;
-
+    private InputManager inputManager;
     private static CatSO currentCatTypeForDeployment;
+
+    // Parent transform for organizing cats in the hierarchy
+    public Transform catParent;
 
     private void Start()
     {
         catParent = GameObject.Find("Cats").transform;
         cameraController = FindObjectOfType<CameraController>();
+        inputManager = InputManager.Instance;
+
+        // Subscribe to input events if needed
+        // For example, if this object handles direct input:
+        // inputManager.OnInputBegan += HandleInputBegan;
     }
-    public void InstantiatePrefab(Vector3 touchPosition)
+
+    private void OnDestroy()
     {
-        spawnedObject = Instantiate(spawnPrefab, touchPosition, Quaternion.identity);
+        // Unsubscribe from events when the object is destroyed
+        // if (inputManager != null)
+        // {
+        //     inputManager.OnInputBegan -= HandleInputBegan;
+        // }
+    }
+
+    public void InstantiatePrefab(Vector3 inputPosition)
+    {
+        spawnedObject = Instantiate(spawnPrefab, inputPosition, Quaternion.identity);
         if (spawnedObject != null)
         {
             Sprite sprite = catType.idleSprite;
             SpriteRenderer spriteRenderer = spawnedObject.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
-
             DragManager.dragObject = spawnedObject;
             spawnedObject.layer = LayerMask.NameToLayer("UI");
             //Debug.Log($"Instantiated {spawnedObject.name} of type {catType.catName}");
         }
     }
 
-    public void SpawnPreviewCat(Vector3 touchPosition)
+    public void SpawnPreviewCat(Vector3 inputPosition)
     {
         currentCatTypeForDeployment = this.catType;
-
-        previewCat = Instantiate(previewPrefab, touchPosition, Quaternion.identity);
+        previewCat = Instantiate(previewPrefab, inputPosition, Quaternion.identity);
         if (previewCat != null)
         {
             Sprite sprite = catType.idleSprite;
             SpriteRenderer spriteRenderer = previewCat.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
-
             DragManager.dragObject = previewCat;
             previewCat.layer = LayerMask.NameToLayer("UI");
             //Debug.Log($"Preview {catType.catName}");
-
             if (CameraController.atShop)
             {
                 //Debug.Log("Starting camera transition");
@@ -63,16 +71,22 @@ public class ShopSpawnScript : MonoBehaviour
             }
         }
     }
+
     public void DeployCat(Vector2 gridPosition)
     {
         CatSO catToUse = currentCatTypeForDeployment;
         spawnedObject = Instantiate(spawnPrefab, gridPosition, Quaternion.identity, catParent);
+
         CatController controller = spawnedObject.GetComponent<CatController>();
         ProjectileFire gunScript = spawnedObject.GetComponent<ProjectileFire>();
         BinCatScript binCatScript = spawnedObject.GetComponent<BinCatScript>();
 
-        gunScript.enabled = (catToUse.catMode == CatType.Gun);
-        binCatScript.enabled = (catToUse.catMode == CatType.CoinCollector);
+        // Enable the appropriate component based on cat type
+        if (gunScript != null)
+            gunScript.enabled = (catToUse.catMode == CatType.Gun);
+
+        if (binCatScript != null)
+            binCatScript.enabled = (catToUse.catMode == CatType.CoinCollector);
 
         if (controller != null)
         {
